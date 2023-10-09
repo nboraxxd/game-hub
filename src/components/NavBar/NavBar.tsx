@@ -5,7 +5,7 @@ import { ColorModeSwitch } from '@/components//ColorModeSwitch'
 export default function NavBar() {
   return (
     <HStack p={2}>
-      <Image src={logo} boxSize="60px" mr="auto" />
+      <Image src={logo} boxSize={{ base: '40px', md: '60px' }} mr="auto" />
       <ColorModeSwitch />
     </HStack>
   )
