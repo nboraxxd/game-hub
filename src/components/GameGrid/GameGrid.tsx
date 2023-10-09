@@ -3,6 +3,7 @@ import useGames from '@/hooks/useGames'
 import { SERVICE_STATUS } from '@/config'
 import { GameCard } from '@/components/GameCard'
 import { GameCardSkeleton } from '@/components/GameCardSkeleton'
+import { GameCardContainer } from '@/components/GameCardContainer'
 
 export default function GameGrid() {
   const { status, error, games } = useGames()
@@ -13,8 +14,16 @@ export default function GameGrid() {
       {status === SERVICE_STATUS.rejected && <Text>{error}</Text>}
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={10} padding={3}>
         {isLoadingGames
-          ? Array.from(Array(12)).map((_, index) => <GameCardSkeleton key={index} />)
-          : games.map((game) => <GameCard key={game.id} game={game} />)}
+          ? Array.from(Array(12)).map((_, index) => (
+              <GameCardContainer>
+                <GameCardSkeleton key={index} />
+              </GameCardContainer>
+            ))
+          : games.map((game) => (
+              <GameCardContainer>
+                <GameCard key={game.id} game={game} />
+              </GameCardContainer>
+            ))}
       </SimpleGrid>
     </>
   )
