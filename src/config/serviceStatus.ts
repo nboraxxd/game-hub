@@ -3,4 +3,4 @@ export const SERVICE_STATUS = {
   pending: 'pending',
   successful: 'successful',
   rejected: 'rejected',
-}
+} as const
