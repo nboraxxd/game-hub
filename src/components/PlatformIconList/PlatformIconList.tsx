@@ -8,7 +8,7 @@ interface Props {
 
 export default function PlatformIconList({ platforms }: Props) {
   return (
-    <HStack my={2}>
+    <HStack>
       {platforms.map((platform) => (
         <Icon key={platform.id} as={icons[platform.slug]} color="gray.500">
           {platform.name}

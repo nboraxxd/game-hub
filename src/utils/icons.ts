@@ -1,8 +1,7 @@
 import { IconType } from 'react-icons'
-import { FaWindows, FaPlaystation, FaXbox, FaApple, FaLinux, FaAndroid } from 'react-icons/fa'
+import { FaWindows, FaPlaystation, FaXbox, FaApple, FaLinux } from 'react-icons/fa'
 import { MdOutlineLightMode, MdDarkMode, MdPhoneIphone } from 'react-icons/md'
-import { SiNintendo } from 'react-icons/si'
-import { BsGlobe } from 'react-icons/bs'
+import { BsGlobe, BsAndroid2, BsNintendoSwitch } from 'react-icons/bs'
 
 interface Icons {
   [key: string]: IconType
@@ -17,9 +16,9 @@ const icons: Icons = {
   xbox: FaXbox,
   mac: FaApple,
   linux: FaLinux,
-  android: FaAndroid,
+  android: BsAndroid2,
   ios: MdPhoneIphone,
-  nintendo: SiNintendo,
+  nintendo: BsNintendoSwitch,
   web: BsGlobe,
 }
 
