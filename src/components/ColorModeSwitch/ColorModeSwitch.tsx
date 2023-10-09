@@ -1,15 +1,20 @@
-import { HStack, useColorMode } from '@chakra-ui/react'
-import { MoonIcon, SunIcon } from '@chakra-ui/icons'
+import { IconButton, useColorMode } from '@chakra-ui/react'
+import icons from '@/utils/icons'
 
 export default function ColorModeSwitch() {
   const { colorMode, toggleColorMode } = useColorMode()
 
-  const iconColor = colorMode === 'light' ? 'gray.800' : 'gray.200'
-  const IconComponent = colorMode === 'light' ? MoonIcon : SunIcon
+  const iconColor = colorMode === 'light' ? 'gray.700' : 'gray.300'
+  const IconColorMode = colorMode === 'light' ? icons.dark : icons.light
 
   return (
-    <HStack>
-      <IconComponent boxSize={6} color={iconColor} cursor="pointer" userSelect="none" onClick={toggleColorMode} />
-    </HStack>
+    <IconButton
+      aria-label="Color mode"
+      variant="link"
+      color={iconColor}
+      fontSize="24px"
+      icon={<IconColorMode />}
+      onClick={toggleColorMode}
+    />
   )
 }
