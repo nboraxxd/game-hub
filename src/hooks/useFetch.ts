@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
-import { CanceledError } from 'axios'
-import { Game } from '@/types/games.type'
+import { AxiosResponse, CanceledError } from 'axios'
 import { Status } from '@/types/status.type'
 import { SERVICE_STATUS } from '@/config'
-import { gamesService } from '@/services/games.service'
 
-export default function useGames() {
-  const [games, setGames] = useState<Game[]>([])
+type Response<T> = {
+  count: number
+  results: T[]
+}
+
+export default function useFetch<T>(promise: (signal: AbortSignal) => Promise<AxiosResponse<Response<T>>>) {
+  const [data, setData] = useState<T[]>([])
   const [error, setError] = useState<string>('')
   const [status, setStatus] = useState<Status>(SERVICE_STATUS.idle)
 
@@ -17,8 +20,9 @@ export default function useGames() {
       try {
         setStatus(SERVICE_STATUS.pending)
 
-        const response = await gamesService.getGames(controller.signal)
-        setGames(response.data.results)
+        const response = await promise(controller.signal)
+
+        setData(response.data.results)
         setStatus(SERVICE_STATUS.successful)
       } catch (err) {
         if (err instanceof CanceledError) {
@@ -37,10 +41,10 @@ export default function useGames() {
     })()
 
     return () => controller.abort()
-  }, [])
+  }, [promise])
 
   return {
-    games,
+    data,
     error,
     status,
   }

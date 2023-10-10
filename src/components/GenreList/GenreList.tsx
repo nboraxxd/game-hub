@@ -1,13 +1,14 @@
 import { Stack, Text } from '@chakra-ui/react'
-import useGenres from '@/hooks/useGenres'
+import { Genre } from '@/types/genres.type'
+import useFetch from '@/hooks/useFetch'
+import { genresService } from '@/services/genres.service'
 
 export default function GenreList() {
-  const { genres, status, error } = useGenres()
-  console.log('🔥 ~ GenreList ~ genres:', genres)
+  const { data } = useFetch<Genre>(genresService.getGenres)
 
   return (
     <Stack>
-      {genres.map((genre) => (
+      {data.map((genre) => (
         <Text key={genre.id}>{genre.name}</Text>
       ))}
     </Stack>
