@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { CanceledError } from 'axios'
-import { Game } from '@/types/games.type'
 import { Status } from '@/types/status.type'
 import { SERVICE_STATUS } from '@/config'
-import { gamesService } from '@/services/games.service'
+import { Genre } from '@/types/genres.type'
+import { genresService } from '@/services/genres.service'
 
-export default function useGames() {
-  const [games, setGames] = useState<Game[]>([])
+export default function useGenres() {
+  const [genres, setGenres] = useState<Genre[]>([])
   const [error, setError] = useState<string>('')
   const [status, setStatus] = useState<Status>(SERVICE_STATUS.idle)
 
@@ -17,8 +17,9 @@ export default function useGames() {
       try {
         setStatus(SERVICE_STATUS.pending)
 
-        const response = await gamesService.getGames(controller.signal)
-        setGames(response.data.results)
+        const response = await genresService.getGenres(controller.signal)
+
+        setGenres(response.data.results)
         setStatus(SERVICE_STATUS.successful)
       } catch (err) {
         if (err instanceof CanceledError) {
@@ -40,7 +41,7 @@ export default function useGames() {
   }, [])
 
   return {
-    games,
+    genres,
     error,
     status,
   }
