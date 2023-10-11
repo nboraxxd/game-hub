@@ -11,7 +11,7 @@ interface Props {
 export default function GameCard({ game }: Props) {
   return (
     <Card shadow="lg">
-      <Image src={getCroppedImageUrl(game.background_image)} borderTopRadius={6} />
+      <Image src={getCroppedImageUrl(game.background_image)} alt={game.name} borderTopRadius={6} />
       <CardBody>
         <HStack justify="space-between" mb={3}>
           <PlatformIconList key={game.id} platforms={game.parent_platforms.map(({ platform }) => platform)} />
