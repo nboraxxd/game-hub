@@ -9,7 +9,12 @@ export default function HomePage() {
         <Show above="lg">
           <SideNav />
         </Show>
-        <Box as="main" flexGrow="1">
+        <Box
+          as="main"
+          display={{ base: 'flex', lg: 'block' }}
+          justifyContent={{ base: 'center', lg: 'unset' }}
+          flexGrow="1"
+        >
           <GameGrid />
         </Box>
       </HStack>
