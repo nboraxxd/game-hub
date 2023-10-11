@@ -17,9 +17,7 @@ export default function GameCard({ game }: Props) {
           <PlatformIconList key={game.id} platforms={game.parent_platforms.map(({ platform }) => platform)} />
           <CriticScore score={game.metacritic} />
         </HStack>
-        <Heading fontSize="2xl" noOfLines={2}>
-          {game.name}
-        </Heading>
+        <Heading fontSize="2xl">{game.name}</Heading>
       </CardBody>
     </Card>
   )

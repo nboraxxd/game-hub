@@ -1,4 +1,4 @@
-import { HStack, Icon } from '@chakra-ui/react'
+import { Icon, List, ListItem } from '@chakra-ui/react'
 import { Platform } from '@/types/games.type'
 import { icons } from '@/utils'
 
@@ -8,12 +8,14 @@ interface Props {
 
 export default function PlatformIconList({ platforms }: Props) {
   return (
-    <HStack>
+    <List display="flex" alignItems="center" ml={-1.5}>
       {platforms.map((platform) => (
-        <Icon key={platform.id} as={icons[platform.slug]} color="gray.500">
-          {platform.name}
-        </Icon>
+        <ListItem key={platform.id} ml={1.5}>
+          <Icon as={icons[platform.slug]} fontSize="14px" color="gray.500">
+            {platform.name}
+          </Icon>
+        </ListItem>
       ))}
-    </HStack>
+    </List>
   )
 }

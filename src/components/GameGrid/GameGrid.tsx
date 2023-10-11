@@ -14,7 +14,7 @@ export default function GameGrid() {
   return (
     <>
       {status === SERVICE_STATUS.rejected && <Text>{error}</Text>}
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={7} padding={3}>
+      <SimpleGrid columns={{ base: 1, lg: 2, xl: 3, '2xl': 4 }} spacing={7}>
         {isLoadingGames
           ? Array.from(Array(12)).map((_, index) => <GameCardSkeleton key={index} />)
           : data.map((game) => <GameCard key={game.id} game={game} />)}

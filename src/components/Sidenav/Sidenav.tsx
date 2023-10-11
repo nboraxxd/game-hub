@@ -4,22 +4,16 @@ import { GenreList } from '@/components/GenreList'
 export default function Sidenav() {
   return (
     <Box
-      as="aside"
-      w="200px"
-      flexShrink="0"
+      as="nav"
       pos="sticky"
-      top="0"
-      height="100vh"
-      overflow="auto"
-      css={{
-        '&::-webkit-scrollbar': {
-          height: 'var(--chakra-sizes-1)',
-          width: 'var(--chakra-sizes-1)',
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: 'var(--chakra-colors-gray-400)',
-        },
-      }}
+      top="3rem"
+      flexShrink="0"
+      width="200px"
+      height="calc(100vh - 6.75rem)"
+      mr={3}
+      pr={2}
+      overflowY="auto"
+      overscrollBehavior="contain"
     >
       <GenreList />
     </Box>
