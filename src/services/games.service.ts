@@ -1,4 +1,4 @@
-import { http } from '@/utils/http'
+import { http } from '@/utils'
 import { SERVER_URL } from '@/config'
 import { GamesResponse } from '@/types/games.type'
 

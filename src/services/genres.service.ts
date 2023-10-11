@@ -1,6 +1,6 @@
 import { GenresResponse } from '@/types/genres.type'
 import { SERVER_URL } from '@/config'
-import { http } from '@/utils/http'
+import { http } from '@/utils'
 
 export const genresService = {
   getGenres(signal: AbortSignal) {
