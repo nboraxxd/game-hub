@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Button, Heading, Image, List, ListItem, Skeleton, Text, useColorModeValue } from '@chakra-ui/react'
+import { Heading, Image, List, ListItem, Skeleton, Text, useColorModeValue } from '@chakra-ui/react'
 import { Genre } from '@/types/genres.type'
 import { SERVICE_STATUS, getCroppedImageUrl } from '@/config'
 import { genresService } from '@/services/genres.service'
 import useFetch from '@/hooks/useFetch'
 import { icons } from '@/utils'
+import { SideNavButton } from '@/components/SideNavButton'
 
 const INITIAL_END_GENRE_INDEX = 9
 
@@ -55,25 +56,13 @@ export default function GenreList() {
               </ListItem>
             ))}
             <ListItem mt={3} mb={10}>
-              <Button
-                leftIcon={<IconButton size="1.5rem" />}
-                variant="unstyled"
-                onClick={handleToggle}
-                display="flex"
-                alignItems="center"
-                justifyContent="start"
-                w="full"
-                h={8}
-                color={buttonColor}
-                _hover={{ color: buttonColorHover }}
-                sx={{
-                  '& .chakra-button__icon': {
-                    marginRight: '12px',
-                  },
-                }}
-              >
-                {isAllGenres ? 'Hide' : 'Show all'}
-              </Button>
+              <SideNavButton
+                IconButton={IconButton}
+                buttonColor={buttonColor}
+                buttonColorHover={buttonColorHover}
+                isAll={isAllGenres}
+                handleToggle={handleToggle}
+              />
             </ListItem>
           </>
         )}

@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { GenreList } from '@/components/GenreList'
 
-export default function Sidenav() {
+export default function SideNav() {
   return (
     <Box
       as="nav"
