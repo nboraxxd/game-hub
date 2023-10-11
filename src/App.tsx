@@ -1,5 +1,8 @@
-import { MainLayout } from '@/layouts/MainLayout'
+import { useRoutes } from 'react-router-dom'
+import { routers } from '@/router'
 
 export default function App() {
-  return <MainLayout />
+  const element = useRoutes(routers)
+
+  return <>{element}</>
 }
