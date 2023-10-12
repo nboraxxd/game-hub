@@ -1,4 +1,4 @@
-import { GenresResponse } from '@/types/genres.type'
+import { GenresResponse } from '@/types'
 import { SERVER_URL } from '@/config'
 import { http } from '@/utils'
 

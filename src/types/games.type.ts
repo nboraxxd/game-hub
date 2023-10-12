@@ -1,12 +1,12 @@
-import { Genre } from '@/types/genres.type'
+import { Genre } from '@/types'
 
-export interface Platform {
+export type Platform = {
   id: number
   name: string
   slug: string
 }
 
-export interface Game {
+export type Game = {
   id: number
   name: string
   background_image: string
@@ -15,7 +15,16 @@ export interface Game {
   genres: Genre[]
 }
 
-export interface GamesResponse {
+export type GamesConfig = {
+  page?: number | string
+  genres?: string
+}
+
+export type GamesQueryConfig = {
+  [key in keyof GamesConfig]: string
+}
+
+export type GamesResponse = {
   count: number
   results: Game[]
 }

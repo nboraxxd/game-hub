@@ -1,5 +1,5 @@
 import { Icon, List, ListItem } from '@chakra-ui/react'
-import { Platform } from '@/types/games.type'
+import { Platform } from '@/types'
 import { icons } from '@/utils'
 
 interface Props {

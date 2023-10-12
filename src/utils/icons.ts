@@ -2,6 +2,7 @@ import { IconType } from 'react-icons'
 import { FaWindows, FaPlaystation, FaXbox, FaApple, FaLinux } from 'react-icons/fa'
 import { MdOutlineLightMode, MdDarkMode, MdPhoneIphone } from 'react-icons/md'
 import { BsGlobe, BsAndroid2, BsNintendoSwitch, BsChevronDown, BsChevronUp } from 'react-icons/bs'
+import { LuGalleryVerticalEnd } from 'react-icons/lu'
 
 type Icons = {
   [key in
@@ -18,6 +19,7 @@ type Icons = {
     | 'ios'
     | 'nintendo'
     | 'web'
+    | 'all'
     | string]: IconType
 }
 
@@ -26,6 +28,7 @@ export const icons: Icons = {
   dark: MdDarkMode,
   down: BsChevronDown,
   up: BsChevronUp,
+  all: LuGalleryVerticalEnd,
 
   pc: FaWindows,
   playstation: FaPlaystation,
