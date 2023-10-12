@@ -13,7 +13,7 @@ import { SideNavButton } from '@/components/SideNavButton'
 const INITIAL_END_GENRE_INDEX = 9
 
 export default function GenreList() {
-  const { genres: genreParams }: GamesConfig = useSearchParamsObj()
+  const { genres: selectedGenre }: GamesConfig = useSearchParamsObj()
 
   const [endGenreIndex, setEndGenreIndex] = useState<undefined | typeof INITIAL_END_GENRE_INDEX>(
     INITIAL_END_GENRE_INDEX
@@ -59,7 +59,7 @@ export default function GenreList() {
               />
               <Text
                 ml={3}
-                textShadow={genreParams ? '' : '0.7px 0 0 currentColor'}
+                textShadow={selectedGenre ? '' : '0.7px 0 0 currentColor'}
                 _hover={{ textShadow: '0.7px 0 0 currentColor' }}
               >
                 All games
@@ -85,7 +85,7 @@ export default function GenreList() {
                   />
                   <Text
                     ml={3}
-                    textShadow={genreParams === genre.slug ? '0.7px 0 0 currentColor' : ''}
+                    textShadow={selectedGenre === genre.slug ? '0.7px 0 0 currentColor' : ''}
                     _hover={{ textShadow: '0.7px 0 0 currentColor' }}
                   >
                     {genre.name}
