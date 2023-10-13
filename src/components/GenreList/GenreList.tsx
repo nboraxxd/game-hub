@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Link, createSearchParams } from 'react-router-dom'
-import { Heading, IconButton, Image, List, ListItem, Skeleton, Text, useColorModeValue } from '@chakra-ui/react'
+import { Link as LinkRouter, createSearchParams } from 'react-router-dom'
+import { Button, Heading, Icon, Image, Link, List, ListItem, Skeleton, Text } from '@chakra-ui/react'
 
 import { GamesConfig, Genre } from '@/types'
 import { PATH, SERVICE_STATUS } from '@/config'
@@ -8,7 +8,6 @@ import { genresService } from '@/services/genres.service'
 import useFetch from '@/hooks/useFetch'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { icons, getCroppedImageUrl } from '@/utils'
-import { SideNavButton } from '@/components/SideNavButton'
 
 const INITIAL_END_GENRE_INDEX = 9
 
@@ -20,8 +19,6 @@ export default function GenreList() {
   )
   const isAllGenres = endGenreIndex === undefined
   const IconToggle = isAllGenres ? icons.up : icons.down
-  const buttonColor = useColorModeValue('gray.600', 'gray.400')
-  const buttonColorHover = useColorModeValue('gray.800', 'gray.200')
 
   const { data: genres, status } = useFetch<Genre>(genresService.getGenres)
   const isLoadingGenres = status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending
@@ -48,59 +45,50 @@ export default function GenreList() {
           ))
         ) : (
           <>
-            <ListItem as={Link} to={PATH.homePage} display="flex" alignItems="center" mt={3}>
-              <IconButton
-                aria-label="All games"
-                icon={<icons.all size="32px" />}
-                variant="outline"
-                size="sm"
-                border="none"
-                _hover={{ background: 'none' }}
-              />
-              <Text
-                ml={3}
-                textShadow={selectedGenre ? '' : '0.7px 0 0 currentColor'}
-                _hover={{ textShadow: '0.7px 0 0 currentColor' }}
-              >
-                All games
-              </Text>
+            <ListItem mt={3}>
+              <Link as={LinkRouter} to={{ pathname: PATH.homePage }} display="inline-flex" alignItems="center">
+                <Icon as={icons.all} boxSize={8} />
+                <Text ml={3} textShadow={selectedGenre ? '' : '0.7px 0 0 currentColor'}>
+                  All games
+                </Text>
+              </Link>
             </ListItem>
             {genres.slice(0, endGenreIndex).map((genre) => {
               const genreSearch = createSearchParams({ genres: genre.slug }).toString()
               return (
-                <ListItem
-                  as={Link}
-                  to={{ pathname: PATH.homePage, search: genreSearch }}
-                  key={genre.id}
-                  display="flex"
-                  alignItems="center"
-                  mt={3}
-                >
-                  <Image
-                    src={getCroppedImageUrl(genre.image_background)}
-                    alt={genre.name}
-                    boxSize="32px"
-                    borderRadius="8"
-                    objectFit="cover"
-                  />
-                  <Text
-                    ml={3}
-                    textShadow={selectedGenre === genre.slug ? '0.7px 0 0 currentColor' : ''}
-                    _hover={{ textShadow: '0.7px 0 0 currentColor' }}
+                <ListItem key={genre.id} mt={3}>
+                  <Link
+                    as={LinkRouter}
+                    to={{ pathname: PATH.homePage, search: genreSearch }}
+                    display="inline-flex"
+                    alignItems="center"
                   >
-                    {genre.name}
-                  </Text>
+                    <Image
+                      src={getCroppedImageUrl(genre.image_background)}
+                      alt={genre.name}
+                      boxSize="32px"
+                      borderRadius="8"
+                      objectFit="cover"
+                    />
+                    <Text ml={3} textShadow={selectedGenre === genre.slug ? '0.7px 0 0 currentColor' : ''}>
+                      {genre.name}
+                    </Text>
+                  </Link>
                 </ListItem>
               )
             })}
-            <ListItem mt={3} mb={10}>
-              <SideNavButton
-                IconButton={IconToggle}
-                buttonColor={buttonColor}
-                buttonColorHover={buttonColorHover}
-                isAll={isAllGenres}
-                handleToggle={handleToggle}
-              />
+            <ListItem mt={1} mb={10}>
+              <Button
+                variant="unstyled"
+                display="inline-flex"
+                alignItems="center"
+                opacity="0.7"
+                _hover={{ opacity: '1' }}
+                onClick={handleToggle}
+              >
+                <Icon as={IconToggle} boxSize={8} />
+                <Text ml={3}>{isAllGenres ? 'Hide' : 'Show all'}</Text>
+              </Button>
             </ListItem>
           </>
         )}
