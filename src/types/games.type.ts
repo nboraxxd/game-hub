@@ -3,7 +3,6 @@ import { Genre } from '@/types'
 export type Platform = {
   id: number
   name: string
-  slug: string
 }
 
 export type Game = {
@@ -16,8 +15,8 @@ export type Game = {
 }
 
 export type GamesConfig = {
-  page?: number | string
   genres?: string
+  parent_platforms?: string
 }
 
 export type GamesQueryConfig = {

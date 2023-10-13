@@ -23,8 +23,8 @@ export default function GameGrid() {
   // thì property đó sẽ tự động được loại bỏ không gắn vào URL để gọi API
   const gamesParamsObj: GamesQueryConfig = omitBy(
     {
-      page: paramsObj.page,
       genres: paramsObj.genres,
+      parent_platforms: paramsObj.parent_platforms,
     },
     isUndefined
   )

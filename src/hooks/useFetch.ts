@@ -26,7 +26,7 @@ export default function useFetch<T>(
   // createSearchParams(paramsConfig).toString() sẽ tạo ra searchParams từ paramsConfig
   // Cụ thể nếu paramsConfig có dạng { page: 3, limit: 12, categories: '60aba4e' }
   // thì searchParams sẽ có dạng 'page=3&limit=12&categories=60aba4e'
-  const dependency = createSearchParams(omit(paramsConfig)).toString()
+  const deps = createSearchParams(omit(paramsConfig)).toString()
 
   useEffect(() => {
     const controller = new AbortController()
@@ -57,7 +57,7 @@ export default function useFetch<T>(
 
     return () => controller.abort()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [promise, dependency])
+  }, [promise, deps])
 
   return {
     data,
