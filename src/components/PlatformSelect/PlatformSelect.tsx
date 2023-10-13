@@ -7,17 +7,10 @@ import dataPlatforms from '@/data/parentPlatforms.data'
 import { PATH } from '@/config'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { GamesConfig } from '@/types'
-import { useEffect, useContext } from 'react'
-import { GamesContext } from '@/contexts/games.context'
 
 export default function PlatformSelect() {
   const navigate = useNavigate()
   const paramsObj: GamesConfig = useSearchParamsObj()
-  const { setPlatform } = useContext(GamesContext)
-
-  useEffect(() => {
-    setPlatform(dataPlatforms.find((platform) => platform.id.toString() === paramsObj.parent_platforms)?.name || '')
-  }, [paramsObj.parent_platforms, setPlatform])
 
   function onSlectPlatform(platformId?: number) {
     const parentPlatform = platformId

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link as LinkRouter, createSearchParams } from 'react-router-dom'
 import { Button, Heading, Icon, Image, Link, List, ListItem, Text } from '@chakra-ui/react'
 import omitBy from 'lodash/omitBy'
@@ -7,7 +7,6 @@ import isUndefined from 'lodash/isUndefined'
 import { GamesConfig } from '@/types'
 import { PATH } from '@/config'
 import dataGenres from '@/data/genres.data'
-import { GamesContext } from '@/contexts/games.context'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { icons, getCroppedImageUrl } from '@/utils'
 
@@ -15,7 +14,6 @@ const INITIAL_END_GENRE_INDEX = 9
 
 export default function GenreList() {
   const paramsObj: GamesConfig = useSearchParamsObj()
-  const { setGenre } = useContext(GamesContext)
 
   const [endGenreIndex, setEndGenreIndex] = useState<undefined | typeof INITIAL_END_GENRE_INDEX>(
     INITIAL_END_GENRE_INDEX
@@ -24,10 +22,6 @@ export default function GenreList() {
   const IconToggle = isAllGenres ? icons.up : icons.down
 
   const genreSearch = paramsObj.search ? { search: paramsObj.search } : undefined
-
-  useEffect(() => {
-    setGenre(dataGenres.find((genre) => genre.slug === paramsObj.genres)?.name || '')
-  }, [paramsObj.genres, setGenre])
 
   function handleToggle() {
     setEndGenreIndex((endGenreIndex) =>

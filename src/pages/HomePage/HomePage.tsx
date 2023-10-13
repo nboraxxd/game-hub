@@ -1,7 +1,9 @@
-import { useContext } from 'react'
-import { Box, Container, HStack, Heading, Skeleton } from '@chakra-ui/react'
+import { Box, Container, HStack, Heading } from '@chakra-ui/react'
 
-import { GamesContext } from '@/contexts/games.context'
+import useSearchParamsObj from '@/hooks/useSearchParamsObj'
+import { GamesConfig } from '@/types'
+import dataGenres from '@/data/genres.data'
+import dataPlatforms from '@/data/parentPlatforms.data'
 import { SideNav } from '@/components/SideNav'
 import { PlatformSelect } from '@/components/PlatformSelect'
 import { SortSelector } from '@/components/SortSelector'
@@ -9,7 +11,9 @@ import { GameGrid } from '@/components/GameGrid'
 import { ClearSortButton } from '@/components/ClearSortButton'
 
 export default function HomePage() {
-  const { genre, platform } = useContext(GamesContext)
+  const paramsObj: GamesConfig = useSearchParamsObj()
+  const genreHeading = dataGenres.find((genre) => genre.slug === paramsObj.genres)?.name
+  const platformHeading = dataPlatforms.find((platform) => platform.id.toString() === paramsObj.parent_platforms)?.name
 
   return (
     <Container maxW="120rem" px={{ base: '6', lg: '10' }}>
@@ -24,11 +28,7 @@ export default function HomePage() {
           maxWidth={{ base: 'unset', sm: '480px', lg: 'unset' }}
         >
           <Heading as="h1" ml={{ base: 'none', sm: 1 }}>
-            {platform === undefined || genre === undefined ? (
-              <Skeleton h="2.5rem" w="200px" />
-            ) : (
-              `${platform} ${genre} Games`
-            )}
+            {`${platformHeading || ''} ${genreHeading || ''} Games`}
           </Heading>
           <HStack
             flexDirection={{ base: 'column', sm: 'row' }}
