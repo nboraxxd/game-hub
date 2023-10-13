@@ -25,6 +25,7 @@ export default function GameGrid() {
       genres: paramsObj.genres,
       parent_platforms: paramsObj.parent_platforms,
       ordering: !paramsObj.ordering ? undefined : paramsObj.ordering,
+      search: paramsObj.search,
     },
     isUndefined
   )

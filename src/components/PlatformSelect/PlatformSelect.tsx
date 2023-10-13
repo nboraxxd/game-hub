@@ -21,7 +21,6 @@ export default function PlatformSelect() {
       ? { ...paramsObj, parent_platforms: platformId.toString() }
       : omit({ ...paramsObj }, ['parent_platforms'])
     const platformSearch = createSearchParams(parentPlatform).toString()
-    console.log('🔥 ~ onSlectPlatform ~ platformSearch:', platformSearch)
 
     navigate({
       pathname: PATH.homePage,

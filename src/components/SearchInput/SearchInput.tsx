@@ -1,24 +1,58 @@
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import { Icon, Input, InputGroup, InputLeftElement, InputRightElement, Kbd, Show } from '@chakra-ui/react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 import { icons } from '@/utils'
-import { useRef, useState } from 'react'
+import { FormEvent, useRef, useState } from 'react'
+import useSearchParamsObj from '@/hooks/useSearchParamsObj'
+import { PATH } from '@/config'
+import { GamesConfig } from '@/types'
 
 export default function SearchInput() {
+  const navigate = useNavigate()
+  const paramsObj: GamesConfig = useSearchParamsObj()
+
   const inputRef = useRef<HTMLInputElement>(null)
   const [isFocused, setIsFocused] = useState(false)
 
-  useHotkeys('ctrl+k', () => inputRef.current?.focus(), { ignoreModifiers: true, preventDefault: true })
-  useHotkeys('esc', () => inputRef.current?.blur(), {
+  useHotkeys('ctrl+k', () => (isFocused ? inputRef.current?.blur() : inputRef.current?.focus()), {
+    ignoreModifiers: true,
+    preventDefault: true,
     enableOnFormTags: ['input'],
   })
 
+  useHotkeys(
+    'esc',
+    () => {
+      if (isFocused) {
+        inputRef.current?.blur()
+      }
+    },
+    {
+      enableOnFormTags: ['input'],
+    }
+  )
+
+  function handleSubmit(ev: FormEvent<HTMLDivElement>) {
+    ev.preventDefault()
+
+    const value = inputRef.current?.value.trim()
+    const search = value ? { ...paramsObj, search: value } : paramsObj
+
+    const searchParams = createSearchParams(search).toString()
+    navigate({
+      pathname: PATH.homePage,
+      search: searchParams,
+    })
+  }
+
   return (
-    <InputGroup mx={{ base: 2, lg: 4 }}>
+    <InputGroup as="form" mx={{ base: 2, lg: 4 }} onSubmit={handleSubmit}>
       <InputLeftElement pointerEvents="none" ml="1px">
         <Icon as={icons.search} />
       </InputLeftElement>
       <Input
+        defaultValue={paramsObj.search}
         ref={inputRef}
         borderRadius={20}
         placeholder="Search games..."
@@ -30,7 +64,7 @@ export default function SearchInput() {
       />
       <Show above="lg">
         <InputRightElement w="5rem" gap={1} pointerEvents="none">
-          {isFocused ? <Kbd>Esc</Kbd> : <Kbd>Ctrl+K</Kbd>}
+          {isFocused ? <Kbd>Enter</Kbd> : <Kbd>Ctrl+K</Kbd>}
         </InputRightElement>
       </Show>
     </InputGroup>
