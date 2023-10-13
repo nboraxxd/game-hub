@@ -1,8 +1,9 @@
 import { Card, CardBody, HStack, Heading, Image } from '@chakra-ui/react'
 import { Game } from '@/types'
-import { getCroppedImageUrl } from '@/config'
+import { getCroppedImageUrl } from '@/utils'
 import { PlatformIconList } from '@/components/PlatformIconList'
 import { CriticScore } from '@/components/CriticScore'
+import defaultImage from '@/assets/images/game-bg-default.jpg'
 
 interface Props {
   game: Game
@@ -11,7 +12,17 @@ interface Props {
 export default function GameCard({ game }: Props) {
   return (
     <Card shadow="lg">
-      <Image src={getCroppedImageUrl(game.background_image)} alt={game.name} borderTopRadius={6} />
+      <Image
+        src={getCroppedImageUrl(game.background_image)}
+        alt={game.name}
+        borderTopRadius={6}
+        onError={(e) => {
+          if (e.currentTarget.src !== defaultImage) {
+            e.currentTarget.onerror = null
+            e.currentTarget.src = defaultImage
+          }
+        }}
+      />
       <CardBody>
         <HStack justify="space-between" mb={3}>
           <PlatformIconList key={game.id} platforms={game.parent_platforms.map(({ platform }) => platform)} />

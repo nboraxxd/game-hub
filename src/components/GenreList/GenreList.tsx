@@ -3,11 +3,11 @@ import { Link, createSearchParams } from 'react-router-dom'
 import { Heading, IconButton, Image, List, ListItem, Skeleton, Text, useColorModeValue } from '@chakra-ui/react'
 
 import { GamesConfig, Genre } from '@/types'
-import { PATH, SERVICE_STATUS, getCroppedImageUrl } from '@/config'
+import { PATH, SERVICE_STATUS } from '@/config'
 import { genresService } from '@/services/genres.service'
 import useFetch from '@/hooks/useFetch'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
-import { icons } from '@/utils'
+import { icons, getCroppedImageUrl } from '@/utils'
 import { SideNavButton } from '@/components/SideNavButton'
 
 const INITIAL_END_GENRE_INDEX = 9

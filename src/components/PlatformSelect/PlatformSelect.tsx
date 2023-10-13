@@ -6,7 +6,7 @@ import useFetch from '@/hooks/useFetch'
 import { plagformsService } from '@/services/platforms.service'
 import { PATH, SERVICE_STATUS } from '@/config'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
-import { GamesConfig, Platform } from '@/types'
+import { GamesConfig } from '@/types'
 
 export default function PlatformSelect() {
   const navigate = useNavigate()
@@ -15,8 +15,8 @@ export default function PlatformSelect() {
   const { data: platforms, status } = useFetch(plagformsService.getPlatforms)
   const isLoadingPlatforms = status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending
 
-  function onSlectPlatform(platform: Platform) {
-    const platformSearch = createSearchParams({ ...paramsObj, parent_platforms: platform.id.toString() }).toString()
+  function onSlectPlatform(platformId: number) {
+    const platformSearch = createSearchParams({ ...paramsObj, parent_platforms: platformId.toString() }).toString()
 
     navigate({
       pathname: PATH.homePage,
@@ -39,7 +39,7 @@ export default function PlatformSelect() {
               </MenuItem>
             ))
           : platforms.map((platform) => (
-              <MenuItem key={platform.id} onClick={() => onSlectPlatform(platform)}>
+              <MenuItem key={platform.id} onClick={() => onSlectPlatform(platform.id)}>
                 {platform.name}
               </MenuItem>
             ))}

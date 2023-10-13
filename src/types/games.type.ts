@@ -17,6 +17,7 @@ export type Game = {
 export type GamesConfig = {
   genres?: string
   parent_platforms?: string
+  ordering?: string
 }
 
 export type GamesQueryConfig = {
