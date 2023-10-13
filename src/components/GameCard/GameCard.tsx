@@ -4,6 +4,7 @@ import { getCroppedImageUrl } from '@/utils'
 import { PlatformIconList } from '@/components/PlatformIconList'
 import { CriticScore } from '@/components/CriticScore'
 import defaultImage from '@/assets/images/game-bg-default.jpg'
+import { Emoji } from '@/components/Emoji'
 
 interface Props {
   game: Game
@@ -28,7 +29,10 @@ export default function GameCard({ game }: Props) {
           <PlatformIconList key={game.id} platforms={game.parent_platforms?.map(({ platform }) => platform)} />
           <CriticScore score={game.metacritic} />
         </HStack>
-        <Heading fontSize="2xl">{game.name}</Heading>
+        <Heading fontSize="2xl" mr="33px">
+          {game.name}
+          <Emoji rating={game.rating_top} />
+        </Heading>
       </CardBody>
     </Card>
   )
