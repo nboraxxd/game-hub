@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Box, Container, HStack, Heading } from '@chakra-ui/react'
+import { Box, Container, HStack, Heading, Skeleton } from '@chakra-ui/react'
 
 import { GamesContext } from '@/contexts/games.context'
 import { SideNav } from '@/components/SideNav'
@@ -8,7 +8,7 @@ import { SortSelector } from '@/components/SortSelector'
 import { GameGrid } from '@/components/GameGrid'
 
 export default function HomePage() {
-  const { genre } = useContext(GamesContext)
+  const { genre, platform } = useContext(GamesContext)
 
   return (
     <Container maxW="120rem" px={{ base: '6', lg: '10' }}>
@@ -23,7 +23,11 @@ export default function HomePage() {
           maxWidth={{ base: 'unset', sm: '480px', lg: 'unset' }}
         >
           <Heading as="h1" ml={{ base: 'none', sm: 1 }}>
-            {`${genre}`} Games
+            {platform === undefined && genre === undefined ? (
+              <Skeleton h="2.5rem" w="200px" />
+            ) : (
+              `${platform} ${genre} Games`
+            )}
           </Heading>
           <HStack
             flexDirection={{ base: 'column', sm: 'row' }}

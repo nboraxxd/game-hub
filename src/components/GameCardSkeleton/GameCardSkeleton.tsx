@@ -4,8 +4,8 @@ export default function GameCardSkeleton() {
   return (
     <Card>
       <Skeleton
-        h={{ base: '320px', lg: '232px', xl: '240px', '2xl': '250px' }}
-        w={{ base: '480px', lg: 'full' }}
+        h={{ base: '215px', md: '320px', lg: '240px', '2xl': '250px' }}
+        w={{ base: 'full', sm: '480px', lg: 'full' }}
         borderTopRadius={6}
         borderBottomRadius="none"
       />

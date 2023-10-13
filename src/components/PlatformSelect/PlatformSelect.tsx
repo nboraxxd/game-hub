@@ -8,13 +8,20 @@ import { plagformsService } from '@/services/platforms.service'
 import { PATH, SERVICE_STATUS } from '@/config'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { GamesConfig } from '@/types'
+import { useEffect, useContext } from 'react'
+import { GamesContext } from '@/contexts/games.context'
 
 export default function PlatformSelect() {
   const navigate = useNavigate()
   const paramsObj: GamesConfig = useSearchParamsObj()
+  const { setPlatform } = useContext(GamesContext)
 
-  const { data: platforms, status } = useFetch(plagformsService.getPlatforms)
+  const { data: dataPlatforms, status } = useFetch(plagformsService.getPlatforms)
   const isLoadingPlatforms = status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending
+
+  useEffect(() => {
+    setPlatform(dataPlatforms.find((platform) => platform.id.toString() === paramsObj.parent_platforms)?.name || '')
+  }, [dataPlatforms, paramsObj.parent_platforms, setPlatform])
 
   function onSlectPlatform(platformId?: number) {
     const parentPlatform = platformId
@@ -33,7 +40,7 @@ export default function PlatformSelect() {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<icons.down />}>
-        Platforms: {platforms.find((p) => p.id.toString() === paramsObj.parent_platforms)?.name || 'All'}
+        Platforms: {dataPlatforms.find((p) => p.id.toString() === paramsObj.parent_platforms)?.name || 'All'}
       </MenuButton>
       <MenuList>
         {isLoadingPlatforms ? (
@@ -45,7 +52,7 @@ export default function PlatformSelect() {
         ) : (
           <>
             <MenuItem onClick={() => onSlectPlatform()}>All</MenuItem>
-            {platforms.map((platform) => (
+            {dataPlatforms.map((platform) => (
               <MenuItem key={platform.id} onClick={() => onSlectPlatform(platform.id)}>
                 {platform.name}
               </MenuItem>
