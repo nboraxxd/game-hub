@@ -23,7 +23,7 @@ export default function GenreList() {
   const buttonColor = useColorModeValue('gray.600', 'gray.400')
   const buttonColorHover = useColorModeValue('gray.800', 'gray.200')
 
-  const { data: genres, status, error } = useFetch<Genre>(genresService.getGenres)
+  const { data: genres, status } = useFetch<Genre>(genresService.getGenres)
   const isLoadingGenres = status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending
 
   function handleToggle() {
@@ -32,7 +32,7 @@ export default function GenreList() {
     )
   }
 
-  if (error) return null
+  if (status === SERVICE_STATUS.rejected) return null
 
   return (
     <>

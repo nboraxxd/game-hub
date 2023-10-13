@@ -12,7 +12,7 @@ export default function PlatformSelect() {
   const navigate = useNavigate()
   const paramsObj: GamesConfig = useSearchParamsObj()
 
-  const { data: platforms, status, error } = useFetch(plagformsService.getPlatforms)
+  const { data: platforms, status } = useFetch(plagformsService.getPlatforms)
   const isLoadingPlatforms = status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending
 
   function onSlectPlatform(platform: Platform) {
@@ -24,7 +24,7 @@ export default function PlatformSelect() {
     })
   }
 
-  if (error) return null
+  if (status === SERVICE_STATUS.rejected) return null
 
   return (
     <Menu>
