@@ -6,6 +6,7 @@ import { SideNav } from '@/components/SideNav'
 import { PlatformSelect } from '@/components/PlatformSelect'
 import { SortSelector } from '@/components/SortSelector'
 import { GameGrid } from '@/components/GameGrid'
+import { ClearSortButton } from '@/components/ClearSortButton'
 
 export default function HomePage() {
   const { genre, platform } = useContext(GamesContext)
@@ -37,6 +38,7 @@ export default function HomePage() {
           >
             <SortSelector />
             <PlatformSelect />
+            <ClearSortButton />
           </HStack>
           <GameGrid />
         </Box>
