@@ -1,10 +1,15 @@
-import { Box, Container, HStack } from '@chakra-ui/react'
+import { useContext } from 'react'
+import { Box, Container, HStack, Heading } from '@chakra-ui/react'
+
+import { GamesContext } from '@/contexts/games.context'
 import { SideNav } from '@/components/SideNav'
 import { PlatformSelect } from '@/components/PlatformSelect'
 import { SortSelector } from '@/components/SortSelector'
 import { GameGrid } from '@/components/GameGrid'
 
 export default function HomePage() {
+  const { genre } = useContext(GamesContext)
+
   return (
     <Container maxW="120rem" px={{ base: '6', lg: '10' }}>
       <HStack alignItems="start" justifyContent={{ base: 'center', lg: 'unset' }}>
@@ -17,7 +22,15 @@ export default function HomePage() {
           justifyContent={{ base: 'center', lg: 'unset' }}
           maxWidth={{ base: 'unset', sm: '480px', lg: 'unset' }}
         >
-          <HStack flexDirection={{ base: 'column', sm: 'row' }} spacing={3} ml={{ base: 'none', sm: 1 }}>
+          <Heading as="h1" ml={{ base: 'none', sm: 1 }}>
+            {`${genre}`} Games
+          </Heading>
+          <HStack
+            flexDirection={{ base: 'column', sm: 'row' }}
+            spacing={3}
+            ml={{ base: 'none', sm: 1 }}
+            mt={{ base: 1.5, lg: 3 }}
+          >
             <SortSelector />
             <PlatformSelect />
           </HStack>

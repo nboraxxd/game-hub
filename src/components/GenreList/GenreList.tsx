@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link as LinkRouter, createSearchParams } from 'react-router-dom'
 import { Button, Heading, Icon, Image, Link, List, ListItem, Skeleton, Text } from '@chakra-ui/react'
 import omitBy from 'lodash/omitBy'
@@ -7,6 +7,7 @@ import isUndefined from 'lodash/isUndefined'
 import { GamesConfig, Genre } from '@/types'
 import { PATH, SERVICE_STATUS } from '@/config'
 import { genresService } from '@/services/genres.service'
+import { GamesContext } from '@/contexts/games.context'
 import useFetch from '@/hooks/useFetch'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { icons, getCroppedImageUrl } from '@/utils'
@@ -15,6 +16,7 @@ const INITIAL_END_GENRE_INDEX = 9
 
 export default function GenreList() {
   const paramsObj: GamesConfig = useSearchParamsObj()
+  const { setGenre } = useContext(GamesContext)
 
   const [endGenreIndex, setEndGenreIndex] = useState<undefined | typeof INITIAL_END_GENRE_INDEX>(
     INITIAL_END_GENRE_INDEX
@@ -22,16 +24,20 @@ export default function GenreList() {
   const isAllGenres = endGenreIndex === undefined
   const IconToggle = isAllGenres ? icons.up : icons.down
 
-  const { data: genres, status } = useFetch<Genre>(genresService.getGenres)
+  const { data: dataGenres, status } = useFetch<Genre>(genresService.getGenres)
   const isLoadingGenres = status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending
+
+  const genreSearch = paramsObj.search ? { search: paramsObj.search } : undefined
+
+  useEffect(() => {
+    setGenre(dataGenres.find((genre) => genre.slug === paramsObj.genres)?.name || '')
+  }, [dataGenres, paramsObj.genres, setGenre])
 
   function handleToggle() {
     setEndGenreIndex((endGenreIndex) =>
       endGenreIndex === INITIAL_END_GENRE_INDEX ? undefined : INITIAL_END_GENRE_INDEX
     )
   }
-
-  const genreSearch = paramsObj.search ? { search: paramsObj.search } : undefined
 
   if (status === SERVICE_STATUS.rejected) return null
 
@@ -62,7 +68,7 @@ export default function GenreList() {
                 </Text>
               </Link>
             </ListItem>
-            {genres.slice(0, endGenreIndex).map((genre) => {
+            {dataGenres.slice(0, endGenreIndex).map((genre) => {
               const genreSearch = paramsObj.search
                 ? { search: paramsObj.search, genres: genre.slug }
                 : omitBy({ genres: genre.slug }, isUndefined)

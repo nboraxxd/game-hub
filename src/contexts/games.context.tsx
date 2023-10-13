@@ -1,8 +1,8 @@
 import { type ReactNode, type Dispatch, type SetStateAction, createContext, useState } from 'react'
 
 type GamesContextType = {
-  gamesTitle: string
-  setGamesTitle: Dispatch<SetStateAction<string>>
+  genre: string
+  setGenre: Dispatch<SetStateAction<string>>
 }
 
 type Props = {
@@ -11,14 +11,14 @@ type Props = {
 }
 
 const initialGamesContext: GamesContextType = {
-  gamesTitle: '',
-  setGamesTitle: () => null,
+  genre: '',
+  setGenre: () => null,
 }
 
 export const GamesContext = createContext<GamesContextType>(initialGamesContext)
 
 export default function GamesProvider({ children, defaultValue = initialGamesContext }: Props) {
-  const [gamesTitle, setGamesTitle] = useState(defaultValue.gamesTitle)
+  const [genre, setGenre] = useState(defaultValue.genre)
 
-  return <GamesContext.Provider value={{ gamesTitle, setGamesTitle }}>{children}</GamesContext.Provider>
+  return <GamesContext.Provider value={{ genre, setGenre }}>{children}</GamesContext.Provider>
 }

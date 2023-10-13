@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function GameCard({ game }: Props) {
-  console.log(game.parent_platforms)
   return (
     <Card shadow="lg">
       <Image
