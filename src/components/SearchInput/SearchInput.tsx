@@ -1,13 +1,13 @@
+import { FormEvent, useState, useRef } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { Icon, Input, InputGroup, InputLeftElement, InputRightElement, Kbd, Show } from '@chakra-ui/react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
-import { icons } from '@/utils'
-import { FormEvent, useState, useRef } from 'react'
-import useSearchParamsObj from '@/hooks/useSearchParamsObj'
-import { PATH } from '@/config'
 import { GamesConfig } from '@/types'
-import useDisUpdateEffect from '../../hooks/useDisUpdateEffect'
+import useDisUpdateEffect from '@/hooks/useDisUpdateEffect'
+import useSearchParamsObj from '@/hooks/useSearchParamsObj'
+import { icons } from '@/utils'
+import { PATH } from '@/config'
 
 export default function SearchInput() {
   const navigate = useNavigate()

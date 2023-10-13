@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function GameCard({ game }: Props) {
+  console.log(game.parent_platforms)
   return (
     <Card shadow="lg">
       <Image
@@ -24,8 +25,8 @@ export default function GameCard({ game }: Props) {
         }}
       />
       <CardBody>
-        <HStack justify="space-between" mb={3}>
-          <PlatformIconList key={game.id} platforms={game.parent_platforms.map(({ platform }) => platform)} />
+        <HStack justify={game.parent_platforms ? 'space-between' : 'flex-end'} mb={3} minH={6}>
+          <PlatformIconList key={game.id} platforms={game.parent_platforms?.map(({ platform }) => platform)} />
           <CriticScore score={game.metacritic} />
         </HStack>
         <Heading fontSize="2xl">{game.name}</Heading>

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link as LinkRouter, createSearchParams } from 'react-router-dom'
 import { Button, Heading, Icon, Image, Link, List, ListItem, Skeleton, Text } from '@chakra-ui/react'
+import omitBy from 'lodash/omitBy'
+import isUndefined from 'lodash/isUndefined'
 
 import { GamesConfig, Genre } from '@/types'
 import { PATH, SERVICE_STATUS } from '@/config'
@@ -12,7 +14,7 @@ import { icons, getCroppedImageUrl } from '@/utils'
 const INITIAL_END_GENRE_INDEX = 9
 
 export default function GenreList() {
-  const { genres: selectedGenre }: GamesConfig = useSearchParamsObj()
+  const paramsObj: GamesConfig = useSearchParamsObj()
 
   const [endGenreIndex, setEndGenreIndex] = useState<undefined | typeof INITIAL_END_GENRE_INDEX>(
     INITIAL_END_GENRE_INDEX
@@ -28,6 +30,8 @@ export default function GenreList() {
       endGenreIndex === INITIAL_END_GENRE_INDEX ? undefined : INITIAL_END_GENRE_INDEX
     )
   }
+
+  const genreSearch = paramsObj.search ? { search: paramsObj.search } : undefined
 
   if (status === SERVICE_STATUS.rejected) return null
 
@@ -46,20 +50,28 @@ export default function GenreList() {
         ) : (
           <>
             <ListItem mt={3}>
-              <Link as={LinkRouter} to={{ pathname: PATH.homePage }} display="inline-flex" alignItems="center">
+              <Link
+                as={LinkRouter}
+                to={{ pathname: PATH.homePage, search: createSearchParams(genreSearch).toString() }}
+                display="inline-flex"
+                alignItems="center"
+              >
                 <Icon as={icons.all} boxSize={8} />
-                <Text ml={3} textShadow={selectedGenre ? '' : '0.7px 0 0 currentColor'}>
+                <Text ml={3} textShadow={paramsObj.genres ? '' : '0.7px 0 0 currentColor'}>
                   All games
                 </Text>
               </Link>
             </ListItem>
             {genres.slice(0, endGenreIndex).map((genre) => {
-              const genreSearch = createSearchParams({ genres: genre.slug }).toString()
+              const genreSearch = paramsObj.search
+                ? { search: paramsObj.search, genres: genre.slug }
+                : omitBy({ genres: genre.slug }, isUndefined)
+
               return (
                 <ListItem key={genre.id} mt={3}>
                   <Link
                     as={LinkRouter}
-                    to={{ pathname: PATH.homePage, search: genreSearch }}
+                    to={{ pathname: PATH.homePage, search: createSearchParams(genreSearch).toString() }}
                     display="inline-flex"
                     alignItems="center"
                   >
@@ -70,7 +82,7 @@ export default function GenreList() {
                       borderRadius="8"
                       objectFit="cover"
                     />
-                    <Text ml={3} textShadow={selectedGenre === genre.slug ? '0.7px 0 0 currentColor' : ''}>
+                    <Text ml={3} textShadow={paramsObj.genres === genre.slug ? '0.7px 0 0 currentColor' : ''}>
                       {genre.name}
                     </Text>
                   </Link>

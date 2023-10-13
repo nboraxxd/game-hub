@@ -9,7 +9,7 @@ interface Props {
 export default function PlatformIconList({ platforms }: Props) {
   return (
     <List display="flex" flexWrap="wrap" alignItems="center" ml={-1.5}>
-      {platforms.map((platform) => (
+      {platforms?.map((platform) => (
         <ListItem key={platform.id} ml={1.5}>
           <Icon as={platformIcons[platform.slug]} fontSize="14px" color="gray.500">
             {platform.name}
