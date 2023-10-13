@@ -1,4 +1,4 @@
-import { Box, Container, HStack, Show } from '@chakra-ui/react'
+import { Box, Container, HStack } from '@chakra-ui/react'
 import { SideNav } from '@/components/SideNav'
 import { PlatformSelect } from '@/components/PlatformSelect'
 import { SortSelector } from '@/components/SortSelector'
@@ -8,18 +8,16 @@ export default function HomePage() {
   return (
     <Container maxW="120rem" px={{ base: '6', lg: '10' }}>
       <HStack alignItems="start" justifyContent={{ base: 'center', lg: 'unset' }}>
-        <Show above="lg">
-          <SideNav />
-        </Show>
+        <SideNav />
         <Box
           as="main"
           flexGrow="1"
           display={{ base: 'flex', lg: 'block' }}
           flexDirection="column"
           justifyContent={{ base: 'center', lg: 'unset' }}
-          maxWidth={{ base: '480px', lg: 'unset' }}
+          maxWidth={{ base: 'unset', sm: '480px', lg: 'unset' }}
         >
-          <HStack spacing={5} pl={1}>
+          <HStack flexDirection={{ base: 'column', sm: 'row' }} spacing={3} ml={{ base: 'none', sm: 1 }}>
             <SortSelector />
             <PlatformSelect />
           </HStack>

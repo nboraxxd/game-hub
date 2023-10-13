@@ -3,6 +3,7 @@ import { Genre } from '@/types'
 export type Platform = {
   id: number
   name: string
+  slug: string
 }
 
 export type Game = {
