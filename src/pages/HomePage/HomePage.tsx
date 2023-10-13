@@ -23,7 +23,7 @@ export default function HomePage() {
           maxWidth={{ base: 'unset', sm: '480px', lg: 'unset' }}
         >
           <Heading as="h1" ml={{ base: 'none', sm: 1 }}>
-            {platform === undefined && genre === undefined ? (
+            {platform === undefined || genre === undefined ? (
               <Skeleton h="2.5rem" w="200px" />
             ) : (
               `${platform} ${genre} Games`

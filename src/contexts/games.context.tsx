@@ -1,10 +1,10 @@
 import { type ReactNode, type Dispatch, type SetStateAction, createContext, useState } from 'react'
 
 type GamesContextType = {
-  genre: string
-  platform: string
-  setGenre: Dispatch<SetStateAction<string>>
-  setPlatform: Dispatch<SetStateAction<string>>
+  genre: string | undefined
+  platform: string | undefined
+  setGenre: Dispatch<SetStateAction<string | undefined>>
+  setPlatform: Dispatch<SetStateAction<string | undefined>>
 }
 
 type Props = {
@@ -13,8 +13,8 @@ type Props = {
 }
 
 const initialGamesContext: GamesContextType = {
-  genre: '',
-  platform: '',
+  genre: undefined,
+  platform: undefined,
   setGenre: () => null,
   setPlatform: () => null,
 }

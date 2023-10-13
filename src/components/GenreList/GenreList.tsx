@@ -30,8 +30,10 @@ export default function GenreList() {
   const genreSearch = paramsObj.search ? { search: paramsObj.search } : undefined
 
   useEffect(() => {
-    setGenre(dataGenres.find((genre) => genre.slug === paramsObj.genres)?.name || '')
-  }, [dataGenres, paramsObj.genres, setGenre])
+    if (!isLoadingGenres) {
+      setGenre(dataGenres.find((genre) => genre.slug === paramsObj.genres)?.name || '')
+    }
+  }, [dataGenres, isLoadingGenres, paramsObj.genres, setGenre])
 
   function handleToggle() {
     setEndGenreIndex((endGenreIndex) =>

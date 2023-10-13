@@ -20,8 +20,10 @@ export default function PlatformSelect() {
   const isLoadingPlatforms = status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending
 
   useEffect(() => {
-    setPlatform(dataPlatforms.find((platform) => platform.id.toString() === paramsObj.parent_platforms)?.name || '')
-  }, [dataPlatforms, paramsObj.parent_platforms, setPlatform])
+    if (!isLoadingPlatforms) {
+      setPlatform(dataPlatforms.find((platform) => platform.id.toString() === paramsObj.parent_platforms)?.name || '')
+    }
+  }, [dataPlatforms, isLoadingPlatforms, paramsObj.parent_platforms, setPlatform])
 
   function onSlectPlatform(platformId?: number) {
     const parentPlatform = platformId
