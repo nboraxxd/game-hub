@@ -1,5 +1,5 @@
 import { MdOutlineLightMode, MdDarkMode } from 'react-icons/md'
-import { BsChevronDown, BsChevronUp } from 'react-icons/bs'
+import { BsChevronDown, BsChevronUp, BsSearch } from 'react-icons/bs'
 import { LuGalleryVerticalEnd } from 'react-icons/lu'
 
 export const icons = {
@@ -8,4 +8,5 @@ export const icons = {
   down: BsChevronDown,
   up: BsChevronUp,
   all: LuGalleryVerticalEnd,
+  search: BsSearch,
 }
