@@ -1,4 +1,5 @@
 import { Box, Container, HStack, Heading } from '@chakra-ui/react'
+import { Helmet } from 'react-helmet-async'
 
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { GamesConfig } from '@/types'
@@ -17,6 +18,10 @@ export default function HomePage() {
 
   return (
     <Container maxW="120rem" px={{ base: '6', lg: '10' }}>
+      <Helmet>
+        <title>Homepage | GameHub</title>
+        <meta name="description" content="Home page of the Gamehub project in the React 18 course" />
+      </Helmet>
       <HStack alignItems="start" justifyContent={{ base: 'center', lg: 'unset' }}>
         <SideNav />
         <Box
