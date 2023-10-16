@@ -37,8 +37,6 @@ export default function GameGrid() {
 
   if (error) return <Text>{error.message}</Text>
 
-  console.log(hasNextPage)
-
   if (!isLoading && !hasNextPage && gamesResponse.pages.length === 1)
     return (
       <Flex flexDirection="column" alignItems="center">

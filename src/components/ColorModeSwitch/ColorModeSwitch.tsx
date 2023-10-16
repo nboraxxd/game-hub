@@ -9,7 +9,7 @@ export default function ColorModeSwitch() {
 
   return (
     <IconButton
-      aria-label="Color mode"
+      aria-label="Change color mode"
       variant="link"
       color={iconColor}
       fontSize="24px"
