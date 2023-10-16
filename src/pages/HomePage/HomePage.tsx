@@ -17,7 +17,7 @@ export default function HomePage() {
   const platformHeading = dataPlatforms.find((platform) => platform.id.toString() === paramsObj.parent_platforms)?.name
 
   return (
-    <Container maxW="120rem" px={{ base: '6', lg: '10' }}>
+    <Container maxW="120rem" px={{ base: '6', lg: '10' }} pb={{ base: 6, lg: 10 }}>
       <Helmet>
         <title>Homepage | GameHub</title>
         <meta name="description" content="Home page of the Gamehub project in the React 18 course" />

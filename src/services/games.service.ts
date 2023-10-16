@@ -4,8 +4,12 @@ import { SuccessResponse } from '../types/utlis.type'
 
 const GAMES_URL = '/games'
 
+type GamesQueryConfigWithPage = GamesQueryConfig & {
+  page: number
+}
+
 export const gamesService = {
-  getGames(params?: GamesQueryConfig): Promise<SuccessResponse<Game>> {
+  getGames(params?: GamesQueryConfigWithPage): Promise<SuccessResponse<Game>> {
     return http.get(GAMES_URL, { params })
   },
 }
