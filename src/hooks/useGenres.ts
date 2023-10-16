@@ -7,7 +7,7 @@ export default function useGenres() {
   return useQuery<SuccessResponse<Genre>, Error>({
     queryKey: ['genres'],
     queryFn: genresService.getGenres,
-    staleTime: 10 * 1000, // 10s
+    staleTime: 60 * 1000, // 1m
     initialData: { count: genresData.length, results: genresData },
   })
 }

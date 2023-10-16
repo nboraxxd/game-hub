@@ -15,7 +15,6 @@ const INITIAL_END_GENRE_INDEX = 9
 export default function GenreList() {
   const paramsObj: GamesConfig = useSearchParamsObj()
   const { data: genresResponse, isLoading, error } = useGenres()
-  console.log('🔥 ~ GenreList ~ genresResponse:', genresResponse)
 
   const [endGenreIndex, setEndGenreIndex] = useState<undefined | typeof INITIAL_END_GENRE_INDEX>(
     INITIAL_END_GENRE_INDEX
@@ -60,7 +59,7 @@ export default function GenreList() {
                 </Text>
               </Link>
             </ListItem>
-            {genresResponse?.results.slice(0, endGenreIndex).map((genre) => {
+            {genresResponse.results.slice(0, endGenreIndex).map((genre) => {
               const genreSearchParams = paramsObj.search
                 ? { search: paramsObj.search, genres: genre.slug }
                 : omitBy({ genres: genre.slug }, isUndefined)

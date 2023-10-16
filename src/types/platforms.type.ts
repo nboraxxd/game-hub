@@ -3,8 +3,3 @@ export interface Platform {
   name: string
   slug: string
 }
-
-export interface PlatformsResponse {
-  count: number
-  results: Platform[]
-}
