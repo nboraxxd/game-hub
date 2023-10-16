@@ -2,14 +2,13 @@ import { Box, Button, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 import omitBy from 'lodash/omitBy'
 import isUndefined from 'lodash/isUndefined'
 
-import { Game, GamesConfig, GamesQueryConfig } from '@/types'
+import { GamesConfig, GamesQueryConfig } from '@/types'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
-import useFetch from '@/hooks/useFetch'
-import { gamesService } from '@/services/games.service'
-import { PATH, SERVICE_STATUS } from '@/config'
+import { PATH } from '@/config'
 import { GameCardSkeleton } from '@/components/GameCardSkeleton'
 import { GameCard } from '@/components/GameCard'
 import { useNavigate } from 'react-router-dom'
+import useGames from '@/hooks/useGames'
 
 export default function GameGrid() {
   const paramsObj: GamesConfig = useSearchParamsObj()
@@ -32,12 +31,11 @@ export default function GameGrid() {
     isUndefined
   )
 
-  const { data, status, error } = useFetch<Game>(gamesService.getGames, gamesParamsObj)
-  const isLoadingGames = status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending
+  const { data: gamesResponse, isLoading, error } = useGames(gamesParamsObj)
 
-  if (status === SERVICE_STATUS.rejected) return <Text>{error}</Text>
+  if (error) return <Text>{error.message}</Text>
 
-  if (!isLoadingGames && data?.length === 0)
+  if (!isLoading && gamesResponse.results.length === 0)
     return (
       <Box display="flex" flexDirection="column" alignItems="center">
         <Heading as="h2" mt={{ base: 6, lg: 12 }}>
@@ -52,9 +50,10 @@ export default function GameGrid() {
   return (
     <>
       <SimpleGrid columns={{ base: 1, lg: 2, xl: 3, '2xl': 4 }} spacing={7} mt={{ base: '1rem', lg: '2rem' }}>
-        {isLoadingGames || !data
+        {isLoading
           ? Array.from(Array(12)).map((_, index) => <GameCardSkeleton key={index} />)
-          : data.length > 0 && data.map((game) => <GameCard key={game.id} game={game} />)}
+          : gamesResponse.results.length > 0 &&
+            gamesResponse.results.map((game) => <GameCard key={game.id} game={game} />)}
       </SimpleGrid>
     </>
   )

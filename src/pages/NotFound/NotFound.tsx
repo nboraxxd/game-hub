@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
 import { PATH } from '@/config'
-import background from '@/assets/images/background-not-found-page.jpg'
+import background from '@/assets/images/game-bg-default.jpg'
 
 export default function NotFound() {
   return (
