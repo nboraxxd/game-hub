@@ -13,8 +13,13 @@ export default function SideNav() {
       height="calc(100vh - 6.75rem)"
       mr={3}
       pr={2}
-      overflowY="auto"
+      overflowY="scroll"
       overscrollBehavior="contain"
+      css={{
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+      }}
     >
       <GenreList />
     </Box>

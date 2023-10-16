@@ -1,9 +1,10 @@
-import { GenresResponse } from '@/types'
-import { SERVER_URL } from '@/config'
+import { Genre, SuccessResponse } from '@/types'
 import { http } from '@/utils'
 
+const GENRES_URL = '/genres'
+
 export const genresService = {
-  getGenres(signal: AbortSignal) {
-    return http.get<GenresResponse>(`${SERVER_URL}/genres`, { signal })
+  getGenres(): Promise<SuccessResponse<Genre>> {
+    return http.get(GENRES_URL)
   },
 }

@@ -7,3 +7,7 @@ export const http: AxiosInstance = axios.create({
     key: '1ab19935c3c44d6da3fdbc8ae3469fb5',
   },
 })
+
+http.interceptors.response.use(function (response) {
+  return response.data
+})

@@ -1,22 +1,17 @@
 import { useEffect, useState } from 'react'
 import { createSearchParams } from 'react-router-dom'
-import { AxiosResponse, CanceledError } from 'axios'
+import { CanceledError } from 'axios'
 import omit from 'lodash/omit'
 
-import { Status } from '@/types'
+import { Status, SuccessResponse } from '@/types'
 import { SERVICE_STATUS } from '@/config'
 
 type paramsConfig = {
   [k: string]: string
 }
 
-type Response<T> = {
-  count: number
-  results: T[]
-}
-
 export default function useFetch<T>(
-  promise: (signal: AbortSignal, paramsConfig?: paramsConfig) => Promise<AxiosResponse<Response<T>>>,
+  promise: (signal: AbortSignal, paramsConfig?: paramsConfig) => Promise<SuccessResponse<T>>,
   paramsConfig?: paramsConfig
 ) {
   const [data, setData] = useState<T[]>([])
@@ -37,7 +32,7 @@ export default function useFetch<T>(
 
         const response = await promise(controller.signal, paramsConfig)
 
-        setData(response.data.results)
+        setData(response.results)
         setStatus(SERVICE_STATUS.successful)
       } catch (err) {
         if (err instanceof CanceledError) {

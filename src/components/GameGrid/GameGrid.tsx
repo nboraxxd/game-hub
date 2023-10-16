@@ -37,7 +37,7 @@ export default function GameGrid() {
 
   if (status === SERVICE_STATUS.rejected) return <Text>{error}</Text>
 
-  if (!isLoadingGames && data.length === 0)
+  if (!isLoadingGames && data?.length === 0)
     return (
       <Box display="flex" flexDirection="column" alignItems="center">
         <Heading as="h2" mt={{ base: 6, lg: 12 }}>
@@ -52,7 +52,7 @@ export default function GameGrid() {
   return (
     <>
       <SimpleGrid columns={{ base: 1, lg: 2, xl: 3, '2xl': 4 }} spacing={7} mt={{ base: '1rem', lg: '2rem' }}>
-        {isLoadingGames
+        {isLoadingGames || !data
           ? Array.from(Array(12)).map((_, index) => <GameCardSkeleton key={index} />)
           : data.length > 0 && data.map((game) => <GameCard key={game.id} game={game} />)}
       </SimpleGrid>
