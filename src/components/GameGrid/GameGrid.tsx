@@ -1,15 +1,16 @@
-import { Box, Button, Heading, SimpleGrid, Text } from '@chakra-ui/react'
+import { Fragment } from 'react'
+import { useNavigate } from 'react-router-dom'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { Box, Button, Heading, SimpleGrid, Spinner, Text } from '@chakra-ui/react'
 import omitBy from 'lodash/omitBy'
 import isUndefined from 'lodash/isUndefined'
 
 import { GamesConfig, GamesQueryConfig } from '@/types'
-import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { PATH } from '@/config'
+import useSearchParamsObj from '@/hooks/useSearchParamsObj'
+import useGames from '@/hooks/useGames'
 import { GameCardSkeleton } from '@/components/GameCardSkeleton'
 import { GameCard } from '@/components/GameCard'
-import { useNavigate } from 'react-router-dom'
-import useGames from '@/hooks/useGames'
-import { Fragment } from 'react'
 
 export default function GameGrid() {
   const paramsObj: GamesConfig = useSearchParamsObj()
@@ -32,14 +33,7 @@ export default function GameGrid() {
     isUndefined
   )
 
-  const {
-    data: gamesResponse,
-    isLoading,
-    error,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useGames(gamesParamsObj)
+  const { data: gamesResponse, isLoading, error, fetchNextPage, hasNextPage } = useGames(gamesParamsObj)
 
   if (error) return <Text>{error.message}</Text>
 
@@ -55,8 +49,23 @@ export default function GameGrid() {
       </Box>
     )
 
+  const fetchedGamesCount = gamesResponse?.pages.reduce((total, page) => total + page.results.length, 0) || 0
+
+  // next={fetchNextPage}
+  // hasMore={Boolean(hasNextPage)}
+
   return (
-    <>
+    <InfiniteScroll
+      style={{ overflow: 'visible' }}
+      dataLength={fetchedGamesCount}
+      next={fetchNextPage}
+      hasMore={Boolean(hasNextPage)}
+      loader={
+        <Box mt={4} textAlign="center">
+          <Spinner size="lg" />
+        </Box>
+      }
+    >
       <SimpleGrid columns={{ base: 1, lg: 2, xl: 3, '2xl': 4 }} spacing={7} mt={{ base: '1rem', lg: '2rem' }}>
         {isLoading
           ? Array.from(Array(12)).map((_, index) => <GameCardSkeleton key={index} />)
@@ -69,11 +78,6 @@ export default function GameGrid() {
               </Fragment>
             ))}
       </SimpleGrid>
-      {hasNextPage && (
-        <Button disabled={isFetchingNextPage} onClick={() => fetchNextPage()}>
-          {isFetchingNextPage ? 'Loading...' : 'Load more'}
-        </Button>
-      )}
-    </>
+    </InfiniteScroll>
   )
 }
