@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { Box, Button, Heading, SimpleGrid, Spinner, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, SimpleGrid, Spinner, Text } from '@chakra-ui/react'
 import omitBy from 'lodash/omitBy'
 import isUndefined from 'lodash/isUndefined'
 
@@ -37,22 +37,21 @@ export default function GameGrid() {
 
   if (error) return <Text>{error.message}</Text>
 
-  if (!isLoading && gamesResponse.pages.length === 0)
+  console.log(hasNextPage)
+
+  if (!isLoading && !hasNextPage && gamesResponse.pages.length === 1)
     return (
-      <Box display="flex" flexDirection="column" alignItems="center">
+      <Flex flexDirection="column" alignItems="center">
         <Heading as="h2" mt={{ base: 6, lg: 12 }}>
           Game not found
         </Heading>
         <Button size="lg" mt={{ base: 3, lg: 6 }} onClick={() => navigate(PATH.homePage)}>
           Clear all
         </Button>
-      </Box>
+      </Flex>
     )
 
   const fetchedGamesCount = gamesResponse?.pages.reduce((total, page) => total + page.results.length, 0) || 0
-
-  // next={fetchNextPage}
-  // hasMore={Boolean(hasNextPage)}
 
   return (
     <InfiniteScroll
