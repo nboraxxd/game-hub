@@ -3,11 +3,11 @@ import { Box, Container, HStack, Heading } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 
 import { GamesConfig } from '@/types'
-import dataGenres from '@/data/genres.data'
-import dataPlatforms from '@/data/parentPlatforms.data'
 import { SCROLL_TRIGGER_POSITION } from '@/config'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import useScrollTo from '@/hooks/useScrollTo'
+import useGenres from '@/hooks/useGenres'
+import usePlatforms from '@/hooks/usePlatforms'
 
 import { SideNav } from '@/components/SideNav'
 import { PlatformSelect } from '@/components/PlatformSelect'
@@ -17,8 +17,14 @@ import { ClearSortButton } from '@/components/ClearSortButton'
 
 export default function HomePage() {
   const paramsObj: GamesConfig = useSearchParamsObj()
-  const genreHeading = dataGenres.find((genre) => genre.slug === paramsObj.genres)?.name
-  const platformHeading = dataPlatforms.find((platform) => platform.id.toString() === paramsObj.parent_platforms)?.name
+
+  const { data: genresResponse } = useGenres()
+  const genreHeading = genresResponse.results.find((genre) => genre.slug === paramsObj.genres)?.name
+
+  const { data: platformsResponse } = usePlatforms()
+  const platformHeading = platformsResponse.results.find(
+    (platform) => platform.id.toString() === paramsObj.parent_platforms
+  )?.name
 
   const topRef = useRef<HTMLHeadingElement>(null)
 
