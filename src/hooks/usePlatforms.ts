@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import ms from 'ms'
 
 import { Platform, SuccessResponse } from '@/types'
 import parentPlatforms from '@/data/parentPlatforms.data'
@@ -8,7 +9,7 @@ export default function usePlatforms() {
   return useQuery<SuccessResponse<Platform>, Error>({
     queryKey: ['platforms'],
     queryFn: platformsService.getPlatforms,
-    staleTime: 60 * 1000, // 1m
+    staleTime: ms('1m'),
     initialData: parentPlatforms,
   })
 }
