@@ -1,10 +1,14 @@
+import { useRef } from 'react'
 import { Box, Container, HStack, Heading } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 
-import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { GamesConfig } from '@/types'
 import dataGenres from '@/data/genres.data'
 import dataPlatforms from '@/data/parentPlatforms.data'
+import { SCROLL_TRIGGER_POSITION } from '@/config'
+import useSearchParamsObj from '@/hooks/useSearchParamsObj'
+import useScrollTo from '@/hooks/useScrollTo'
+
 import { SideNav } from '@/components/SideNav'
 import { PlatformSelect } from '@/components/PlatformSelect'
 import { SortSelector } from '@/components/SortSelector'
@@ -15,6 +19,15 @@ export default function HomePage() {
   const paramsObj: GamesConfig = useSearchParamsObj()
   const genreHeading = dataGenres.find((genre) => genre.slug === paramsObj.genres)?.name
   const platformHeading = dataPlatforms.find((platform) => platform.id.toString() === paramsObj.parent_platforms)?.name
+
+  const topRef = useRef<HTMLHeadingElement>(null)
+
+  useScrollTo(
+    [paramsObj.genres || ''],
+    window.scrollY >= SCROLL_TRIGGER_POSITION
+      ? (topRef?.current?.getBoundingClientRect().top ?? 0) + window.scrollY
+      : undefined
+  )
 
   return (
     <Container maxW="120rem" px={{ base: '6', lg: '10' }} pb={{ base: 6, lg: 10 }}>
@@ -32,9 +45,9 @@ export default function HomePage() {
           justifyContent={{ base: 'center', lg: 'unset' }}
           maxWidth={{ base: 'unset', sm: '480px', lg: 'unset' }}
         >
-          <Heading as="h1" ml={{ base: 'none', sm: 1 }}>
-            {`${platformHeading || ''} ${genreHeading || ''} Games`}
-          </Heading>
+          <Heading as="h1" ref={topRef} ml={{ base: 'none', sm: 1 }}>{`${platformHeading || ''} ${
+            genreHeading || ''
+          } Games`}</Heading>
           <HStack
             flexDirection={{ base: 'column', sm: 'row' }}
             spacing={3}

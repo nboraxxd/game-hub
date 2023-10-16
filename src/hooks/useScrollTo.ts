@@ -7,5 +7,5 @@ export default function useScrollTo(dependencyList: string[] = [], top?: number 
       behavior: 'smooth',
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...dependencyList, top])
+  }, [...dependencyList])
 }

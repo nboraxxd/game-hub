@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { IconButton } from '@chakra-ui/react'
+import { SCROLL_TRIGGER_POSITION } from '@/config'
 import { icons } from '@/utils'
 
 export default function ScrollToTopButton() {
@@ -7,7 +8,7 @@ export default function ScrollToTopButton() {
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
+      if (window.scrollY > SCROLL_TRIGGER_POSITION) {
         setVisible(true)
       } else {
         setVisible(false)

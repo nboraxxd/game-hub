@@ -1,0 +1,1 @@
+export const SCROLL_TRIGGER_POSITION = 400
