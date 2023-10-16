@@ -9,6 +9,6 @@ export default function usePlatforms() {
     queryKey: ['platforms'],
     queryFn: platformsService.getPlatforms,
     staleTime: 60 * 1000, // 1m
-    initialData: { count: parentPlatforms.length, next: null, results: parentPlatforms },
+    initialData: parentPlatforms,
   })
 }

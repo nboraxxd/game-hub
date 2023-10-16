@@ -8,6 +8,6 @@ export default function useGenres() {
     queryKey: ['genres'],
     queryFn: genresService.getGenres,
     staleTime: 60 * 1000, // 1m
-    initialData: { count: genresData.length, next: null, results: genresData },
+    initialData: genresData,
   })
 }

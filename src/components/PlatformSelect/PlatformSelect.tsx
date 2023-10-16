@@ -11,6 +11,7 @@ import usePlatforms from '@/hooks/usePlatforms'
 export default function PlatformSelect() {
   const navigate = useNavigate()
   const paramsObj: GamesConfig = useSearchParamsObj()
+
   const { data: platformsResponse, isLoading, error } = usePlatforms()
 
   function onSlectPlatform(platformId?: number) {
