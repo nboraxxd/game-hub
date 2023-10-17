@@ -44,6 +44,8 @@ export default function SearchInput() {
       pathname: PATH.homePage,
       search: searchParams,
     })
+
+    inputRef.current?.blur()
   }
 
   return (

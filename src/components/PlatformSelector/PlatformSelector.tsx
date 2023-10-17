@@ -8,7 +8,7 @@ import { PATH } from '@/config'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import usePlatforms from '@/hooks/usePlatforms'
 
-export default function PlatformSelect() {
+export default function PlatformSelector() {
   const navigate = useNavigate()
   const paramsObj: GamesConfig = useSearchParamsObj()
 
@@ -31,8 +31,7 @@ export default function PlatformSelect() {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<icons.down />}>
-        Platforms:{' '}
-        {platformsResponse.results.find((p) => p.id.toString() === paramsObj.parent_platforms)?.name || 'All'}
+        Platform: {platformsResponse.results.find((p) => p.id.toString() === paramsObj.parent_platforms)?.name || 'All'}
       </MenuButton>
       <MenuList>
         {isLoading ? (

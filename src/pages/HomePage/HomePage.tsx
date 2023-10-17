@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Box, Container, HStack, Heading } from '@chakra-ui/react'
+import { Box, Container, HStack, Heading, Show } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 
 import { GamesConfig } from '@/types'
@@ -10,10 +10,11 @@ import useGenres from '@/hooks/useGenres'
 import usePlatforms from '@/hooks/usePlatforms'
 
 import { SideNav } from '@/components/SideNav'
-import { PlatformSelect } from '@/components/PlatformSelect'
+import { GenreSelector } from '@/components/GenreSelector'
 import { SortSelector } from '@/components/SortSelector'
-import { GameGrid } from '@/components/GameGrid'
+import { PlatformSelector } from '@/components/PlatformSelector'
 import { ClearSortButton } from '@/components/ClearSortButton'
+import { GameGrid } from '@/components/GameGrid'
 
 export default function HomePage() {
   const paramsObj: GamesConfig = useSearchParamsObj()
@@ -55,13 +56,16 @@ export default function HomePage() {
             genreHeading || ''
           } Games`}</Heading>
           <HStack
-            flexDirection={{ base: 'column', sm: 'row' }}
+            flexDirection={{ base: 'column', lg: 'row' }}
             spacing={3}
             ml={{ base: 'none', sm: 1 }}
             mt={{ base: 1.5, lg: 3 }}
           >
+            <Show below="lg">
+              <GenreSelector />
+            </Show>
+            <PlatformSelector />
             <SortSelector />
-            <PlatformSelect />
             <ClearSortButton />
           </HStack>
           <GameGrid />

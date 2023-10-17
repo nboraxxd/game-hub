@@ -24,7 +24,7 @@ export default function ClearSortButton() {
 
   return (
     <IconButton
-      ml={{ base: 'unset', sm: 'auto' }}
+      ml={{ base: 'unset', lg: 'auto' }}
       aria-label="Clear sort"
       icon={<icons.clearSort />}
       title="Clear sort"
