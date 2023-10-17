@@ -1,5 +1,5 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { Box, Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import omit from 'lodash/omit'
 
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
@@ -34,17 +34,19 @@ export default function SortSelector() {
   const currentSortOrder = sortOrders.find((order) => order.value === paramsObj.ordering)
 
   return (
-    <Menu>
-      <MenuButton as={Button} rightIcon={<icons.down />}>
-        Order by: {currentSortOrder?.label || 'Relevance'}
-      </MenuButton>
-      <MenuList>
-        {sortOrders.map((order) => (
-          <MenuItem key={order.value} value={order.value} onClick={() => onSelectOrder(order.value)}>
-            {order.label}
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu>
+    <Box>
+      <Menu>
+        <MenuButton as={Button} rightIcon={<icons.down />}>
+          Order by: {currentSortOrder?.label || 'Relevance'}
+        </MenuButton>
+        <MenuList>
+          {sortOrders.map((order) => (
+            <MenuItem key={order.value} value={order.value} onClick={() => onSelectOrder(order.value)}>
+              {order.label}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+    </Box>
   )
 }

@@ -1,5 +1,5 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import { Button, Menu, MenuButton, MenuItem, MenuList, Skeleton } from '@chakra-ui/react'
+import { Box, Button, Menu, MenuButton, MenuItem, MenuList, Skeleton } from '@chakra-ui/react'
 import omitBy from 'lodash/omitBy'
 import isUndefined from 'lodash/isUndefined'
 
@@ -30,28 +30,30 @@ export default function GenreSelector() {
   if (error) return null
 
   return (
-    <Menu>
-      <MenuButton as={Button} rightIcon={<icons.down />}>
-        Genre: {genresResponse.results.find((g) => g.slug === paramsObj.genres)?.name || 'All'}
-      </MenuButton>
-      <MenuList zIndex="dropdown" maxHeight="50vh" overflowY="scroll">
-        {isLoading ? (
-          Array.from(Array(12)).map((_, index) => (
-            <MenuItem key={index} as="div" h="36px" _hover={{ background: 'none' }}>
-              <Skeleton h="full" w="full" />
-            </MenuItem>
-          ))
-        ) : (
-          <>
-            <MenuItem onClick={() => onSlectGenre()}>All</MenuItem>
-            {genresResponse.results.map((genre) => (
-              <MenuItem key={genre.id} onClick={() => onSlectGenre(genre.slug)}>
-                {genre.name}
+    <Box>
+      <Menu>
+        <MenuButton as={Button} rightIcon={<icons.down />}>
+          Genre: {genresResponse.results.find((g) => g.slug === paramsObj.genres)?.name || 'All'}
+        </MenuButton>
+        <MenuList zIndex="dropdown" maxHeight="50vh" overflowY="scroll">
+          {isLoading ? (
+            Array.from(Array(12)).map((_, index) => (
+              <MenuItem key={index} as="div" h="36px" _hover={{ background: 'none' }}>
+                <Skeleton h="full" w="full" />
               </MenuItem>
-            ))}
-          </>
-        )}
-      </MenuList>
-    </Menu>
+            ))
+          ) : (
+            <>
+              <MenuItem onClick={() => onSlectGenre()}>All</MenuItem>
+              {genresResponse.results.map((genre) => (
+                <MenuItem key={genre.id} onClick={() => onSlectGenre(genre.slug)}>
+                  {genre.name}
+                </MenuItem>
+              ))}
+            </>
+          )}
+        </MenuList>
+      </Menu>
+    </Box>
   )
 }

@@ -1,5 +1,5 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import { Button, Menu, MenuButton, MenuItem, MenuList, Skeleton } from '@chakra-ui/react'
+import { Box, Button, Menu, MenuButton, MenuItem, MenuList, Skeleton } from '@chakra-ui/react'
 import omit from 'lodash/omit'
 
 import { GamesConfig } from '@/types'
@@ -29,28 +29,31 @@ export default function PlatformSelector() {
   if (error) return null
 
   return (
-    <Menu>
-      <MenuButton as={Button} rightIcon={<icons.down />}>
-        Platform: {platformsResponse.results.find((p) => p.id.toString() === paramsObj.parent_platforms)?.name || 'All'}
-      </MenuButton>
-      <MenuList>
-        {isLoading ? (
-          Array.from(Array(6)).map((_, index) => (
-            <MenuItem key={index} as="div" h="36px" _hover={{ background: 'none' }}>
-              <Skeleton h="full" w="full" />
-            </MenuItem>
-          ))
-        ) : (
-          <>
-            <MenuItem onClick={() => onSlectPlatform()}>All</MenuItem>
-            {platformsResponse.results.map((platform) => (
-              <MenuItem key={platform.id} onClick={() => onSlectPlatform(platform.id)}>
-                {platform.name}
+    <Box>
+      <Menu>
+        <MenuButton as={Button} rightIcon={<icons.down />}>
+          Platform:{' '}
+          {platformsResponse.results.find((p) => p.id.toString() === paramsObj.parent_platforms)?.name || 'All'}
+        </MenuButton>
+        <MenuList>
+          {isLoading ? (
+            Array.from(Array(6)).map((_, index) => (
+              <MenuItem key={index} as="div" h="36px" _hover={{ background: 'none' }}>
+                <Skeleton h="full" w="full" />
               </MenuItem>
-            ))}
-          </>
-        )}
-      </MenuList>
-    </Menu>
+            ))
+          ) : (
+            <>
+              <MenuItem onClick={() => onSlectPlatform()}>All</MenuItem>
+              {platformsResponse.results.map((platform) => (
+                <MenuItem key={platform.id} onClick={() => onSlectPlatform(platform.id)}>
+                  {platform.name}
+                </MenuItem>
+              ))}
+            </>
+          )}
+        </MenuList>
+      </Menu>
+    </Box>
   )
 }

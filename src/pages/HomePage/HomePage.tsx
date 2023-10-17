@@ -56,10 +56,12 @@ export default function HomePage() {
             genreHeading || ''
           } Games`}</Heading>
           <HStack
-            flexDirection={{ base: 'column', lg: 'row' }}
             spacing={3}
-            ml={{ base: 'none', sm: 1 }}
-            mt={{ base: 1.5, lg: 3 }}
+            ml={{ lg: 1 }}
+            mt={3}
+            pb={{ base: 1, lg: 0 }}
+            overflowX="auto"
+            width={{ base: 'calc(100vw - 48px)', sm: 'inherit' }}
           >
             <Show below="lg">
               <GenreSelector />
