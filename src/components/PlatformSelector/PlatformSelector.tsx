@@ -24,7 +24,7 @@ export default function PlatformSelector() {
     const platformSearchParams = createSearchParams(parentPlatform).toString()
 
     navigate({
-      pathname: PATH.homePage,
+      pathname: PATH.games,
       search: platformSearchParams,
     })
   }

@@ -48,7 +48,7 @@ export default function SearchInput() {
     const searchParams = createSearchParams(search).toString()
 
     navigate({
-      pathname: PATH.homePage,
+      pathname: PATH.games,
       search: searchParams,
     })
 

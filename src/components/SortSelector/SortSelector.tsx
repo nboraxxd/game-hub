@@ -29,7 +29,7 @@ export default function SortSelector() {
     const orderSearch = createSearchParams(ordering).toString()
 
     navigate({
-      pathname: PATH.homePage,
+      pathname: PATH.games,
       search: orderSearch,
     })
   }

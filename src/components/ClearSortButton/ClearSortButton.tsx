@@ -17,7 +17,7 @@ export default function ClearSortButton() {
     ).toString()
 
     navigate({
-      pathname: PATH.homePage,
+      pathname: PATH.games,
       search: queryParams,
     })
   }

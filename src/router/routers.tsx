@@ -7,6 +7,22 @@ const HomePage = lazy(() => import('@/pages/HomePage/HomePage'))
 const NotFound = lazy(() => import('@/pages/NotFound/NotFound'))
 
 export const routers = [
-  { path: PATH.homePage, element: <MainLayout />, children: [{ index: true, element: <HomePage /> }] },
-  { path: PATH.notFound, element: <NotFound /> },
+  {
+    path: PATH.homePage,
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: PATH.games,
+        element: <HomePage />,
+      },
+    ],
+  },
+  {
+    path: PATH.notFound,
+    element: <NotFound />,
+  },
 ]

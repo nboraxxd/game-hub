@@ -49,7 +49,7 @@ export default function GenreList() {
             <ListItem mt={3}>
               <Link
                 as={LinkRouter}
-                to={{ pathname: PATH.homePage, search: createSearchParams(genreSearchParams).toString() }}
+                to={{ pathname: PATH.games, search: createSearchParams(genreSearchParams).toString() }}
                 display="inline-flex"
                 alignItems="center"
               >
@@ -68,7 +68,7 @@ export default function GenreList() {
                 <ListItem key={genre.id} mt={3}>
                   <Link
                     as={LinkRouter}
-                    to={{ pathname: PATH.homePage, search: createSearchParams(genreSearchParams).toString() }}
+                    to={{ pathname: PATH.games, search: createSearchParams(genreSearchParams).toString() }}
                     display="inline-flex"
                     alignItems="center"
                   >

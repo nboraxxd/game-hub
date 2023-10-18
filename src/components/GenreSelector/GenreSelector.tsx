@@ -25,7 +25,7 @@ export default function GenreSelector() {
     const genreSearchParams = createSearchParams(omitBy(genre, isUndefined)).toString()
 
     navigate({
-      pathname: PATH.homePage,
+      pathname: PATH.games,
       search: genreSearchParams,
     })
   }
