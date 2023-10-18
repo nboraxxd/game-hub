@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import ms from 'ms'
 
-import { Platform, SuccessResponse } from '@/types'
+import { SuccessResponse, Platform } from '@/types'
+
 import parentPlatforms from '@/data/parentPlatforms.data'
 import { platformsService } from '@/services/platforms.service'
 

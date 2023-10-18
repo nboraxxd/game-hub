@@ -4,11 +4,11 @@ import { Container, Heading } from '@chakra-ui/react'
 
 import useGameDetail from '@/hooks/useGameDetail'
 import { ExpandableText } from '@/components/ExpandableText'
+import { GameAttributes } from '@/components/GameAttributes'
 
 export default function GameDetail() {
   const { slug } = useParams()
   const { data: gameDetail, isLoading, error } = useGameDetail(slug!)
-  console.log(gameDetail?.description.length)
 
   if (error) return <p>Không tìm thấy game</p>
 
@@ -20,8 +20,11 @@ export default function GameDetail() {
         <title>{gameDetail.name} | GameHub</title>
         <meta name="description" content={gameDetail.description_raw} />
       </Helmet>
+
       <Heading as="h1">{gameDetail.name}</Heading>
       <ExpandableText children={gameDetail.description_raw} />
+
+      <GameAttributes game={gameDetail} />
     </Container>
   )
 }
