@@ -21,7 +21,10 @@ export default function SortSelector() {
   const navigate = useNavigate()
 
   function onSelectOrder(orderValue: string) {
-    const ordering = orderValue === '' ? omit({ ...paramsObj }, ['ordering']) : { ...paramsObj, ordering: orderValue }
+    if (orderValue === '' && paramsObj.ordering === undefined) return
+    if (orderValue !== '' && orderValue === paramsObj.ordering) return
+
+    const ordering = orderValue === '' ? omit(paramsObj, ['ordering']) : { ...paramsObj, ordering: orderValue }
 
     const orderSearch = createSearchParams(ordering).toString()
 

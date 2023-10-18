@@ -16,6 +16,8 @@ export default function GenreSelector() {
   const { data: genresResponse, isLoading, error } = useGenres()
 
   function onSlectGenre(genreSlug?: string) {
+    if (genreSlug === paramsObj.genres) return
+
     const genre: GamesConfig = genreSlug
       ? { search: paramsObj.search, genres: genreSlug }
       : { search: paramsObj.search }

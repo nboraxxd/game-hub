@@ -15,9 +15,11 @@ export default function PlatformSelector() {
   const { data: platformsResponse, isLoading, error } = usePlatforms()
 
   function onSlectPlatform(platformId?: number) {
+    if (platformId?.toString() === paramsObj.parent_platforms) return
+
     const parentPlatform: GamesConfig = platformId
       ? { ...paramsObj, parent_platforms: platformId.toString() }
-      : omit({ ...paramsObj }, ['parent_platforms'])
+      : omit(paramsObj, ['parent_platforms'])
 
     const platformSearchParams = createSearchParams(parentPlatform).toString()
 
@@ -36,7 +38,7 @@ export default function PlatformSelector() {
           Platform:{' '}
           {platformsResponse.results.find((p) => p.id.toString() === paramsObj.parent_platforms)?.name || 'All'}
         </MenuButton>
-        <MenuList>
+        <MenuList zIndex="dropdown" maxHeight="50vh" overflowY="scroll">
           {isLoading ? (
             Array.from(Array(6)).map((_, index) => (
               <MenuItem key={index} as="div" h="36px" _hover={{ background: 'none' }}>
