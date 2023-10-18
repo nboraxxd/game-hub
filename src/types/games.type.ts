@@ -9,6 +9,7 @@ export type Platform = {
 export type Game = {
   id: number
   name: string
+  slug: string
   background_image: string
   parent_platforms: { platform: Platform }[]
   metacritic: number
@@ -27,7 +28,10 @@ export type GamesQueryConfig = {
   [key in keyof GamesConfig]: string
 }
 
-export type GamesResponse = {
-  count: number
-  results: Game[]
+export type GameDetail = {
+  id: number
+  name: string
+  description: string
+  background_image: string
+  description_raw: string
 }
