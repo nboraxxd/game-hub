@@ -15,9 +15,10 @@ export default function PlatformSelector() {
   const { data: platformsResponse, isLoading, error } = usePlatforms()
 
   function onSlectPlatform(platformId?: number) {
-    const parentPlatform = platformId
+    const parentPlatform: GamesConfig = platformId
       ? { ...paramsObj, parent_platforms: platformId.toString() }
       : omit({ ...paramsObj }, ['parent_platforms'])
+
     const platformSearchParams = createSearchParams(parentPlatform).toString()
 
     navigate({

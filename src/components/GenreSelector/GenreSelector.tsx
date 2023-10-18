@@ -19,6 +19,7 @@ export default function GenreSelector() {
     const genre: GamesConfig = genreSlug
       ? { search: paramsObj.search, genres: genreSlug }
       : { search: paramsObj.search }
+
     const genreSearchParams = createSearchParams(omitBy(genre, isUndefined)).toString()
 
     navigate({

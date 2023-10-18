@@ -5,7 +5,7 @@ import omit from 'lodash/omit'
 import { GamesConfig } from '@/types'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import { PATH } from '@/config'
-import { icons } from '@/utils'
+import { icons, hasOnlyGenreOrEmpty } from '@/utils'
 
 export default function ClearSortButton() {
   const navigate = useNavigate()
@@ -29,6 +29,7 @@ export default function ClearSortButton() {
       title="Clear sort"
       flexShrink="0"
       ml={{ base: 'unset', lg: 'auto' }}
+      isDisabled={hasOnlyGenreOrEmpty(paramsObj)}
       onClick={onClearSort}
     />
   )
