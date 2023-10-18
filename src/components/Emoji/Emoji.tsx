@@ -21,8 +21,9 @@ export default function Emoji({ rating }: Props) {
   }
 
   return (
-    <Box display="inline" position="relative">
+    <Box as="span" display="inline" position="relative" w="25px">
       <Box
+        as="span"
         position="absolute"
         w="25px"
         h="full"

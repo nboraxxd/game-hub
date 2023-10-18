@@ -10,24 +10,20 @@ import { icons, getCroppedImageUrl } from '@/utils'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import useGenres from '@/hooks/useGenres'
 
-const INITIAL_END_GENRE_INDEX = 9
+const LIMIT = 9
 
 export default function GenreList() {
   const paramsObj: GamesConfig = useSearchParamsObj()
   const { data: genresResponse, isLoading, error } = useGenres()
 
-  const [endGenreIndex, setEndGenreIndex] = useState<undefined | typeof INITIAL_END_GENRE_INDEX>(
-    INITIAL_END_GENRE_INDEX
-  )
-  const isAllGenres = endGenreIndex === undefined
+  const [limit, setLimit] = useState<undefined | typeof LIMIT>(LIMIT)
+  const isAllGenres = limit === undefined
   const IconToggle = isAllGenres ? icons.up : icons.down
 
   const genreSearchParams = paramsObj.search ? { search: paramsObj.search } : undefined
 
   function handleToggle() {
-    setEndGenreIndex((endGenreIndex) =>
-      endGenreIndex === INITIAL_END_GENRE_INDEX ? undefined : INITIAL_END_GENRE_INDEX
-    )
+    setLimit((endGenreIndex) => (endGenreIndex === LIMIT ? undefined : LIMIT))
   }
 
   if (error) return null
@@ -59,7 +55,7 @@ export default function GenreList() {
                 </Text>
               </Link>
             </ListItem>
-            {genresResponse.results.slice(0, endGenreIndex).map((genre) => {
+            {genresResponse.results.slice(0, limit).map((genre) => {
               const genreSearchParams = paramsObj.search
                 ? { search: paramsObj.search, genres: genre.slug }
                 : omitBy({ genres: genre.slug }, isUndefined)
