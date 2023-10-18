@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, isRouteErrorResponse, useRouteError } from 'react-router-dom'
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
 import { PATH } from '@/config'
 import background from '@/assets/images/game-bg-default.jpg'
 
 export default function NotFound() {
+  const error = useRouteError()
+
   return (
     <Flex
       as="section"
@@ -31,7 +33,7 @@ export default function NotFound() {
         <Heading as="h1" fontSize="12rem" fontWeight="semibold" noOfLines={1}>
           404
         </Heading>
-        <Text>We couldn't find that page.</Text>
+        <Text>{isRouteErrorResponse(error) ? "We couldn't find that page." : 'An unexpected error occurred'}</Text>
         <Button
           as={Link}
           height="3.125rem"

@@ -11,7 +11,7 @@ import { icons } from '@/utils'
 import { PATH } from '@/config'
 
 export default function SearchInput() {
-  const controlK = isMacOs ? 'Control+K' : 'Ctrl+K'
+  const controlK = isMacOs ? 'Command+K' : 'Ctrl+K'
 
   const navigate = useNavigate()
   const paramsObj: GamesConfig = useSearchParamsObj()
