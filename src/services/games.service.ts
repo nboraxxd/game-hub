@@ -9,7 +9,7 @@ type GamesQueryConfigWithPage = GamesQueryConfig & {
 }
 
 export const gamesService = {
-  getGames(params?: GamesQueryConfigWithPage): Promise<SuccessResponse<Game>> {
-    return http.get(GAMES_URL, { params })
+  getGames(params?: GamesQueryConfigWithPage, signal?: AbortSignal) {
+    return http.get<SuccessResponse<Game>, SuccessResponse<Game>>(GAMES_URL, { params, signal })
   },
 }
