@@ -16,14 +16,15 @@ export default function GameScreenshots({ name, slug }: Props) {
   console.log(data)
 
   return (
-    <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={6}>
+    <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={3}>
       {data?.results.map(({ id, image }) => (
         <Image
           key={id}
-          objectFit="cover"
           src={image}
           alt={name}
-          borderRadius="lg"
+          h="full"
+          objectFit="cover"
+          borderRadius="md"
           boxShadow="lg"
           opacity="0.9"
           _hover={{
