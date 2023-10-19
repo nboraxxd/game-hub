@@ -16,7 +16,7 @@ export default function ExpandableText({ children }: Props) {
   const summary = expanded ? children : children.substring(0, limit)
 
   return (
-    <Text mt={5} lineHeight="tall">
+    <Text lineHeight="tall">
       {summary}
       {!expanded && '...'}
       <Button size="xs" colorScheme="teal" ml={1} fontWeight="bold" onClick={() => setExpanded(!expanded)}>

@@ -8,7 +8,7 @@ type Props = {
 
 export default function DefinitionItem({ children, term }: Props) {
   return (
-    <Box my={5}>
+    <Box my={3}>
       <Heading as="dt" fontSize="md" color="gray.600">
         {term}
       </Heading>

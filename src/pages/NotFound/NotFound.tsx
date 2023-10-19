@@ -30,10 +30,12 @@ export default function NotFound() {
       }}
     >
       <Box pos="relative" px="4" color="white" textAlign="center" fontSize="3xl">
-        <Heading as="h1" fontSize="12rem" fontWeight="semibold" noOfLines={1}>
+        <Heading as="h1" fontSize={{ base: '6rem', lg: '12rem' }} fontWeight="semibold" noOfLines={1}>
           404
         </Heading>
-        <Text>{isRouteErrorResponse(error) ? "We couldn't find that page." : 'An unexpected error occurred'}</Text>
+        <Text fontSize={{ base: '1.5rem', lg: '4rem' }}>
+          {isRouteErrorResponse(error) ? "We couldn't find that page." : 'An unexpected error occurred'}
+        </Text>
         <Button
           as={Link}
           height="3.125rem"

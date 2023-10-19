@@ -10,7 +10,7 @@ type Props = {
 
 export default function GameAttributes({ game }: Props) {
   return (
-    <SimpleGrid as="dl" columns={2}>
+    <SimpleGrid as="dl" columns={2} spacing={2} mt={3}>
       <DefinitionItem term="Platforms">
         {game.parent_platforms?.map(({ platform }) => <Text key={platform.id}>{platform.name}</Text>)}
       </DefinitionItem>
