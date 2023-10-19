@@ -1,11 +1,11 @@
 import useTrailers from '@/hooks/useTrailers'
 
 type Props = {
-  gameSlug: string
+  slug: string
 }
 
-export default function GameTrailer({ gameSlug }: Props) {
-  const { data, isLoading, error } = useTrailers(gameSlug!)
+export default function GameTrailer({ slug }: Props) {
+  const { data, isLoading, error } = useTrailers(slug!)
 
   if (isLoading) return null
 
