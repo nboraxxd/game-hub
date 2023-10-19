@@ -5,10 +5,11 @@ import { Container, Heading } from '@chakra-ui/react'
 import useGameDetail from '@/hooks/useGameDetail'
 import { ExpandableText } from '@/components/ExpandableText'
 import { GameAttributes } from '@/components/GameAttributes'
+import { GameTrailer } from '@/components/GameTrailer'
 
 export default function GameDetail() {
   const { slug } = useParams()
-  const { data: gameDetail, isLoading, error } = useGameDetail(slug!)
+  const { data: game, isLoading, error } = useGameDetail(slug!)
 
   if (error) return <p>Không tìm thấy game</p>
 
@@ -17,14 +18,15 @@ export default function GameDetail() {
   return (
     <Container maxW="120rem" px={{ base: '6', lg: '10' }} pb={{ base: 6, lg: 10 }}>
       <Helmet>
-        <title>{gameDetail.name} | GameHub</title>
-        <meta name="description" content={gameDetail.description_raw} />
+        <title>{game.name} | GameHub</title>
+        <meta name="description" content={game.description_raw} />
       </Helmet>
 
-      <Heading as="h1">{gameDetail.name}</Heading>
-      <ExpandableText children={gameDetail.description_raw} />
+      <Heading as="h1">{game.name}</Heading>
+      <ExpandableText children={game.description_raw} />
 
-      <GameAttributes game={gameDetail} />
+      <GameAttributes game={game} />
+      <GameTrailer gameSlug={game.slug} />
     </Container>
   )
 }

@@ -1,4 +1,4 @@
-import { Game, GamesQueryConfig, SuccessResponse } from '@/types'
+import { Game, GamesQueryConfig, SuccessResponse, Trailer } from '@/types'
 import { http } from '@/utils'
 
 const GAMES_URL = '/games'
@@ -14,5 +14,11 @@ export const gamesService = {
 
   getGameDetail(slug: string) {
     return http.get<Game, Game>(`${GAMES_URL}/${slug}`)
+  },
+
+  getTrailers(slug: string, signal?: AbortSignal) {
+    return http.get<SuccessResponse<Trailer>, SuccessResponse<Trailer>>(`${GAMES_URL}/${slug}/movies`, {
+      signal,
+    })
   },
 }
