@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Link, generatePath } from 'react-router-dom'
 import { Card, CardBody, HStack, Heading, Image } from '@chakra-ui/react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import { Game } from '@/types'
 import { PATH } from '@/config'
@@ -16,6 +18,8 @@ interface Props {
 export default function GameCard({ game }: Props) {
   const gameDetailPath = generatePath(PATH.gameDetail, { slug: game.slug })
 
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
+
   return (
     <Card
       shadow="lg"
@@ -26,15 +30,20 @@ export default function GameCard({ game }: Props) {
     >
       <Link to={gameDetailPath}>
         <Image
+          as={LazyLoadImage}
           src={getCroppedImageUrl(game.background_image)}
           alt={game.name}
-          borderTopRadius={6}
+          onLoad={() => setIsImageLoaded(true)}
           onError={(e) => {
             if (e.currentTarget.src !== defaultImage) {
               e.currentTarget.onerror = null
               e.currentTarget.src = defaultImage
             }
           }}
+          borderTopRadius={6}
+          scale={isImageLoaded ? 1 : 0.8}
+          opacity={isImageLoaded ? 1 : 0}
+          transition={'opacity .3s ease-in, transform .3s ease-in'}
         />
       </Link>
       <CardBody>

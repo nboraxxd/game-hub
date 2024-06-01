@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { Link as LinkRouter, createSearchParams } from 'react-router-dom'
-import { Button, Heading, Icon, Image, Link, List, ListItem, Skeleton, Text } from '@chakra-ui/react'
 import omitBy from 'lodash/omitBy'
 import isUndefined from 'lodash/isUndefined'
+import { useState } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { Link as LinkRouter, createSearchParams } from 'react-router-dom'
+import { Button, Heading, Icon, Image, Link, List, ListItem, Skeleton, Text } from '@chakra-ui/react'
 
-import { GamesConfig } from '@/types'
 import { PATH } from '@/config'
+import { GamesConfig } from '@/types'
 import { icons, getCroppedImageUrl } from '@/utils'
 import useSearchParamsObj from '@/hooks/useSearchParamsObj'
 import useGenres from '@/hooks/useGenres'
@@ -16,6 +17,7 @@ export default function GenreList() {
   const paramsObj: GamesConfig = useSearchParamsObj()
   const { data: genresResponse, isLoading, error } = useGenres()
 
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
   const [limit, setLimit] = useState<undefined | typeof LIMIT>(LIMIT)
   const isAllGenres = limit === undefined
   const IconToggle = isAllGenres ? icons.up : icons.down
@@ -69,11 +71,16 @@ export default function GenreList() {
                     alignItems="center"
                   >
                     <Image
+                      as={LazyLoadImage}
                       src={getCroppedImageUrl(genre.image_background)}
                       alt={genre.name}
+                      onLoad={() => setIsImageLoaded(true)}
                       boxSize="32px"
                       borderRadius="8"
                       objectFit="cover"
+                      scale={isImageLoaded ? 1 : 0.8}
+                      opacity={isImageLoaded ? 1 : 0}
+                      transition={'opacity .3s ease-in, transform .3s ease-in'}
                     />
                     <Text ml={3} textShadow={paramsObj.genres === genre.slug ? '0.7px 0 0 currentColor' : ''}>
                       {genre.name}

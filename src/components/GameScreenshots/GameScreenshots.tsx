@@ -1,12 +1,17 @@
+import { useState } from 'react'
+import { Image, SimpleGrid, Skeleton } from '@chakra-ui/react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+
 import useGameDetail from '@/hooks/useGameDetail'
 import useScreenshots from '@/hooks/useScreenshots'
-import { Image, SimpleGrid, Skeleton } from '@chakra-ui/react'
 
 type Props = {
   slug: string
 }
 
 export default function GameScreenshots({ slug }: Props) {
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
+
   const { data, isLoading, error } = useScreenshots(slug)
   const { data: gameData } = useGameDetail(slug)
 
@@ -18,18 +23,21 @@ export default function GameScreenshots({ slug }: Props) {
         ? Array.from(Array(4)).map((_, index) => <Skeleton key={index} h={60} />)
         : data?.results.map(({ id, image }) => (
             <Image
+              as={LazyLoadImage}
               key={id}
               src={image}
               alt={gameData?.name}
+              onLoad={() => setIsImageLoaded(true)}
               h="full"
               objectFit="cover"
               borderRadius="md"
               boxShadow="lg"
-              opacity="0.9"
+              scale={isImageLoaded ? 1 : 0.8}
+              opacity={isImageLoaded ? 0.9 : 0}
+              transition={'opacity .3s ease-in, transform .3s ease-in'}
               _hover={{
-                transform: 'scale(1.02)',
-                opacity: '1',
-                transition: 'all .2s ease-in',
+                transform: isImageLoaded ? 'scale(1.02)' : 'scale(1)',
+                opacity: isImageLoaded ? 1 : 0,
               }}
             />
           ))}
